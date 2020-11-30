@@ -16,10 +16,8 @@ const displayQuote = (quote) => {
 };
 const tweetQuote = () => {
 };
-const displayLoader = () => {
-};
-const clearLoader = () => {
-};
+const displayLoader = () => elements.loader.removeAttribute('hidden');
+const clearLoader = () => elements.loader.setAttribute('hidden', '');
 const getAndDisplayQuote = async () => {
     displayLoader();
     const quote = await getQuote();

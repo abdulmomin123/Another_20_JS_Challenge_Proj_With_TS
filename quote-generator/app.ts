@@ -33,13 +33,9 @@ const tweetQuote = () => {
   //
 };
 
-const displayLoader = () => {
-  //
-};
+const displayLoader = () => elements.loader.removeAttribute('hidden');
 
-const clearLoader = () => {
-  //
-};
+const clearLoader = () => elements.loader.setAttribute('hidden', '');
 
 const getAndDisplayQuote = async () => {
   displayLoader();
