@@ -11,5 +11,20 @@ const elements = {
 // global variables
 
 // functions
+const getQuote = () => {
+  //
+};
+
+const displayQuote = () => {
+  //
+};
+
+const displayLoader = () => {
+  //
+};
+
+const clearLoader = () => {
+  //
+};
 
 // event listeners

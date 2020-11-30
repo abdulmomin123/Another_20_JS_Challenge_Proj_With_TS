@@ -7,3 +7,11 @@ const elements = {
     newQuoteBtn: document.getElementById('new-quote'),
     loader: document.getElementById('loader'),
 };
+const getQuote = () => {
+};
+const displayQuote = () => {
+};
+const displayLoader = () => {
+};
+const clearLoader = () => {
+};
