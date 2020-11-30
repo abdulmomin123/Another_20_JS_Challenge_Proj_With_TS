@@ -15,3 +15,5 @@ const displayLoader = () => {
 };
 const clearLoader = () => {
 };
+const tweetQuote = () => {
+};

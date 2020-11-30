@@ -27,4 +27,8 @@ const clearLoader = () => {
   //
 };
 
+const tweetQuote = () => {
+  //
+};
+
 // event listeners
