@@ -14,16 +14,19 @@ interface Quote {
   quoteText: string;
 }
 
+let currentQuote: Quote;
+
 // functions
 // gets a quote
 const getQuote = async () => {
-  const response: Quote = await (
+  const quote: Quote = await (
     await fetch(
       'https://cors-anywhere.herokuapp.com/http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en'
     )
   ).json();
 
-  return response;
+  currentQuote = quote;
+  return quote;
 };
 
 // displays the quote
@@ -42,13 +45,12 @@ const displayQuote = (quote: Quote) => {
 
   elements.quoteText.innerHTML = markupQuote;
   elements.authorText.innerHTML = markupAuthor;
-
-  console.log(quote);
 };
 
 // tweets the quote
 const tweetQuote = () => {
-  //
+  const twitterUrl = `https://twitter.com/intent/tweet?text=${currentQuote.quoteText} - ${currentQuote.quoteAuthor}`;
+  window.open(twitterUrl, '_blank');
 };
 
 // displayes the loader
@@ -76,3 +78,5 @@ getAndDisplayQuote();
 
 // event listeners
 elements.newQuoteBtn.addEventListener('click', getAndDisplayQuote);
+
+elements.twitterBtn.addEventListener('click', tweetQuote);
