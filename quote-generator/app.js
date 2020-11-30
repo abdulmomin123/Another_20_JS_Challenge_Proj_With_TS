@@ -1,7 +1,9 @@
 "use strict";
-const quoteContainer = document.getElementById('quote-container');
-const quoteText = document.getElementById('quote');
-const authorText = document.getElementById('author');
-const twitterBtn = document.getElementById('twitter');
-const newQuoteBtn = document.getElementById('new-quote');
-const loader = document.getElementById('loader');
+const elements = {
+    quoteContainer: document.getElementById('quote-container'),
+    quoteText: document.getElementById('quote'),
+    authorText: document.getElementById('author'),
+    twitterBtn: document.getElementById('twitter'),
+    newQuoteBtn: document.getElementById('new-quote'),
+    loader: document.getElementById('loader'),
+};

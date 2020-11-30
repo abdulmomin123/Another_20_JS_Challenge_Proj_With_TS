@@ -1,6 +1,15 @@
-const quoteContainer = document.getElementById('quote-container');
-const quoteText = document.getElementById('quote');
-const authorText = document.getElementById('author');
-const twitterBtn = document.getElementById('twitter');
-const newQuoteBtn = document.getElementById('new-quote');
-const loader = document.getElementById('loader');
+// dom elements
+const elements = {
+  quoteContainer: document.getElementById('quote-container') as HTMLDivElement,
+  quoteText: document.getElementById('quote') as HTMLSpanElement,
+  authorText: document.getElementById('author') as HTMLSpanElement,
+  twitterBtn: document.getElementById('twitter') as HTMLButtonElement,
+  newQuoteBtn: document.getElementById('new-quote') as HTMLButtonElement,
+  loader: document.getElementById('loader') as HTMLDivElement,
+};
+
+// global variables
+
+// functions
+
+// event listeners
