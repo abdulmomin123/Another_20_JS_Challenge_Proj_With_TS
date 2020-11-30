@@ -15,6 +15,7 @@ interface Quote {
 }
 
 // functions
+// gets a quote
 const getQuote = async () => {
   const response: Quote = await (
     await fetch(
@@ -25,18 +26,23 @@ const getQuote = async () => {
   return response;
 };
 
+// displays the quote
 const displayQuote = (quote: Quote) => {
   console.log(quote);
 };
 
+// tweets the quote
 const tweetQuote = () => {
   //
 };
 
+// displayes the loader
 const displayLoader = () => elements.loader.removeAttribute('hidden');
 
+// removes the loader
 const clearLoader = () => elements.loader.setAttribute('hidden', '');
 
+// gets & displays the quote
 const getAndDisplayQuote = async () => {
   displayLoader();
 
