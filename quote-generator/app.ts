@@ -28,6 +28,21 @@ const getQuote = async () => {
 
 // displays the quote
 const displayQuote = (quote: Quote) => {
+  const markupQuote = `
+   <span id="quote">
+      ${quote.quoteText}
+   </span>
+   `;
+
+  const markupAuthor = `
+   <div class="quote-author">
+      <span id="author">${quote.quoteAuthor}</span>
+   </div>
+   `;
+
+  elements.quoteText.innerHTML = markupQuote;
+  elements.authorText.innerHTML = markupAuthor;
+
   console.log(quote);
 };
 
@@ -44,6 +59,8 @@ const clearLoader = () => elements.loader.setAttribute('hidden', '');
 
 // gets & displays the quote
 const getAndDisplayQuote = async () => {
+  elements.quoteContainer.setAttribute('hidden', '');
+
   displayLoader();
 
   const quote = await getQuote();
@@ -51,8 +68,11 @@ const getAndDisplayQuote = async () => {
   displayQuote(quote);
 
   clearLoader();
+
+  elements.quoteContainer.removeAttribute('hidden');
 };
 
 getAndDisplayQuote();
 
 // event listeners
+elements.newQuoteBtn.addEventListener('click', getAndDisplayQuote);

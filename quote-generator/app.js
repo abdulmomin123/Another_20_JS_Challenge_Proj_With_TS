@@ -12,6 +12,18 @@ const getQuote = async () => {
     return response;
 };
 const displayQuote = (quote) => {
+    const markupQuote = `
+   <span id="quote">
+      ${quote.quoteText}
+   </span>
+   `;
+    const markupAuthor = `
+   <div class="quote-author">
+      <span id="author">${quote.quoteAuthor}</span>
+   </div>
+   `;
+    elements.quoteText.innerHTML = markupQuote;
+    elements.authorText.innerHTML = markupAuthor;
     console.log(quote);
 };
 const tweetQuote = () => {
@@ -19,9 +31,12 @@ const tweetQuote = () => {
 const displayLoader = () => elements.loader.removeAttribute('hidden');
 const clearLoader = () => elements.loader.setAttribute('hidden', '');
 const getAndDisplayQuote = async () => {
+    elements.quoteContainer.setAttribute('hidden', '');
     displayLoader();
     const quote = await getQuote();
     displayQuote(quote);
     clearLoader();
+    elements.quoteContainer.removeAttribute('hidden');
 };
 getAndDisplayQuote();
+elements.newQuoteBtn.addEventListener('click', getAndDisplayQuote);
