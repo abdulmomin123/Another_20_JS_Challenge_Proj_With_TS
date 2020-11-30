@@ -9,13 +9,27 @@ const elements = {
 };
 
 // global variables
+interface Quote {
+  quoteAuthor: string;
+  quoteText: string;
+}
 
 // functions
-const getQuote = () => {
-  //
+const getQuote = async () => {
+  const response: Quote = await (
+    await fetch(
+      'https://cors-anywhere.herokuapp.com/http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en'
+    )
+  ).json();
+
+  return response;
 };
 
-const displayQuote = () => {
+const displayQuote = (quote: Quote) => {
+  console.log(quote);
+};
+
+const tweetQuote = () => {
   //
 };
 
@@ -27,8 +41,16 @@ const clearLoader = () => {
   //
 };
 
-const tweetQuote = () => {
-  //
+const getAndDisplayQuote = async () => {
+  displayLoader();
+
+  const quote = await getQuote();
+
+  displayQuote(quote);
+
+  clearLoader();
 };
+
+getAndDisplayQuote();
 
 // event listeners

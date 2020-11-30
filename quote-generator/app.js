@@ -7,13 +7,23 @@ const elements = {
     newQuoteBtn: document.getElementById('new-quote'),
     loader: document.getElementById('loader'),
 };
-const getQuote = () => {
+const getQuote = async () => {
+    const response = await (await fetch('https://cors-anywhere.herokuapp.com/http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en')).json();
+    return response;
 };
-const displayQuote = () => {
+const displayQuote = (quote) => {
+    console.log(quote);
+};
+const tweetQuote = () => {
 };
 const displayLoader = () => {
 };
 const clearLoader = () => {
 };
-const tweetQuote = () => {
+const getAndDisplayQuote = async () => {
+    displayLoader();
+    const quote = await getQuote();
+    displayQuote(quote);
+    clearLoader();
 };
+getAndDisplayQuote();
