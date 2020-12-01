@@ -1,18 +1,24 @@
 // dom elements
-const videoElement = document.getElementById('video') as HTMLVideoElement;
+const videoElement = document.getElementById('video') as any;
 const button = document.getElementById('button') as HTMLButtonElement;
 
 // Workaround the TypeScript Bug of not having getDisplayMedia
-// on type MediaDevices
+// and
 const mediaDevices = navigator.mediaDevices as any;
 
 // functions
 const askForScreen = async () => {
-  const media = await mediaDevices.getDisplayMedia();
+  const stream = await mediaDevices.getDisplayMedia();
 
-  console.log(media);
+  videoElement.srcObject = stream;
+  await videoElement.play();
 };
 
-askForScreen();
+const togglePictureInPicture = async () => {
+  await askForScreen();
+
+  videoElement.requestPictureInPicture();
+};
 
 // event listeners
+button.addEventListener('click', togglePictureInPicture);
