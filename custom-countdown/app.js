@@ -27,7 +27,7 @@ const getInput = () => {
         title: elements.inputTitle.value,
         timeStamp: {
             date: +date,
-            month: +month,
+            month: +month - 1,
             year: +year,
         },
     };
@@ -37,14 +37,23 @@ const getInput = () => {
 const calcRemaningTime = (futureTime) => {
     const { title } = futureTime;
     const { date, month, year } = futureTime.timeStamp;
-    console.log(date, month, year);
+    let totalTime = (+new Date(year, month, date, 0, 0, 0) - Date.now()) / 1000;
+    console.log(totalTime);
+    // all remaning time
+    const days = Math.floor(totalTime / 60 / 60 / 24);
+    totalTime %= 86400;
+    const hours = Math.floor(totalTime / 60 / 60);
+    totalTime %= 3600;
+    const minutes = Math.floor(totalTime / 60);
+    totalTime %= 60;
+    const seconds = Math.floor(totalTime);
     return {
         title,
         timeStamp: {
-            days: 30,
-            hours: 24,
-            minutes: 60,
-            seconds: 60,
+            days,
+            hours,
+            minutes,
+            seconds,
         },
     };
 };
