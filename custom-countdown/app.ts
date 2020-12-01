@@ -32,10 +32,13 @@ interface UserInput {
 }
 
 interface RemaningTime {
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
+  title: string;
+  timeStamp: {
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+  };
 }
 
 const today = new Date();
@@ -66,22 +69,28 @@ const getInput = () => {
 
 // calculates the remaning time from today based on future time
 const calcRemaningTime = (futureTime: UserInput) => {
+  const { title } = futureTime;
   const { date, month, year } = futureTime.timeStamp;
   console.log(date, month, year);
 
   return {
-    days: 30,
-    hours: 24,
-    minutes: 60,
-    seconds: 60,
+    title,
+    timeStamp: {
+      days: 30,
+      hours: 24,
+      minutes: 60,
+      seconds: 60,
+    },
   };
 };
 
 // displays the remaning time calculated by calRemaningTime
 const displayRemaningTime = (timeLeft: RemaningTime) => {
-  const { days, hours, minutes, seconds } = timeLeft;
+  const { title } = timeLeft;
+  const { days, hours, minutes, seconds } = timeLeft.timeStamp;
   const allTimes = [days, hours, minutes, seconds];
 
+  elements.countdownElTitle.textContent = title;
   elements.timeElements.forEach((time, i) =>
     (time as HTMLElement).insertAdjacentHTML(
       'afterbegin',
@@ -91,8 +100,6 @@ const displayRemaningTime = (timeLeft: RemaningTime) => {
 
   elements.inputContainer.setAttribute('hidden', '');
   elements.countdownEl.removeAttribute('hidden');
-
-  console.log(days, hours, minutes, seconds);
 };
 
 const saveTime = () => {
@@ -121,7 +128,8 @@ const calcAndDisplayRemaningTime = () => {
   const remaningTime = calcRemaningTime(input);
 
   console.log(remaningTime);
-  //   // display the remaning time
+
+  // display the remaning time
   displayRemaningTime(remaningTime);
 };
 

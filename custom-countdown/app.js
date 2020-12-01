@@ -35,23 +35,28 @@ const getInput = () => {
 };
 // calculates the remaning time from today based on future time
 const calcRemaningTime = (futureTime) => {
+    const { title } = futureTime;
     const { date, month, year } = futureTime.timeStamp;
     console.log(date, month, year);
     return {
-        days: 30,
-        hours: 24,
-        minutes: 60,
-        seconds: 60,
+        title,
+        timeStamp: {
+            days: 30,
+            hours: 24,
+            minutes: 60,
+            seconds: 60,
+        },
     };
 };
 // displays the remaning time calculated by calRemaningTime
 const displayRemaningTime = (timeLeft) => {
-    const { days, hours, minutes, seconds } = timeLeft;
+    const { title } = timeLeft;
+    const { days, hours, minutes, seconds } = timeLeft.timeStamp;
     const allTimes = [days, hours, minutes, seconds];
+    elements.countdownElTitle.textContent = title;
     elements.timeElements.forEach((time, i) => time.insertAdjacentHTML('afterbegin', `<span>${allTimes[i]}</span>`));
     elements.inputContainer.setAttribute('hidden', '');
     elements.countdownEl.removeAttribute('hidden');
-    console.log(days, hours, minutes, seconds);
 };
 const saveTime = () => {
     //
@@ -71,7 +76,7 @@ const calcAndDisplayRemaningTime = () => {
     // calculate the remaning time
     const remaningTime = calcRemaningTime(input);
     console.log(remaningTime);
-    //   // display the remaning time
+    // display the remaning time
     displayRemaningTime(remaningTime);
 };
 // sets the minumum date of the date picker to today
