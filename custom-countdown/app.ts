@@ -42,6 +42,7 @@ interface RemaningTime {
 }
 
 const today = new Date();
+let timerId: number;
 
 // functions
 const setMinDate = () => {
@@ -112,12 +113,15 @@ const displayRemaningTime = (timeLeft: RemaningTime) => {
   elements.countdownEl.removeAttribute('hidden');
 };
 
-const saveTime = () => {
-  //
-};
+const saveTime = (input: UserInput) =>
+  localStorage.setItem('previouslySetTime', JSON.stringify(input));
 
 const retriveTime = () => {
-  //
+  const input = localStorage.getItem('previouslySetTime');
+
+  if (!input) return;
+
+  return JSON.parse(input);
 };
 
 const resetCountdown = () => {

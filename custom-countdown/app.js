@@ -14,6 +14,7 @@ const elements = {
     completeBtn: document.getElementById('complete-button'),
 };
 const today = new Date();
+let timerId;
 // functions
 const setMinDate = () => {
     const year = today.getFullYear();
@@ -66,11 +67,12 @@ const displayRemaningTime = (timeLeft) => {
     elements.inputContainer.setAttribute('hidden', '');
     elements.countdownEl.removeAttribute('hidden');
 };
-const saveTime = () => {
-    //
-};
+const saveTime = (input) => localStorage.setItem('previouslySetTime', JSON.stringify(input));
 const retriveTime = () => {
-    //
+    const input = localStorage.getItem('previouslySetTime');
+    if (!input)
+        return;
+    return JSON.parse(input);
 };
 const resetCountdown = () => {
     elements.timeElements.forEach(time => time.firstElementChild?.remove());
