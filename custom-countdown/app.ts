@@ -31,7 +31,17 @@ interface UserInput {
   };
 }
 
+const today = new Date();
+
 // functions
+const setMinDate = () => {
+  const year = today.getFullYear();
+  const month = `${today.getMonth() + 1}`.padStart(2, '0');
+  const date = `${today.getDate()}`.padStart(2, '0');
+
+  elements.dateEl.setAttribute('min', `${year}-${month}-${date}`);
+};
+
 const getInput = (e: Event) => {
   e.preventDefault();
 
@@ -48,6 +58,8 @@ const getInput = (e: Event) => {
 
   return input;
 };
+
+setMinDate();
 
 // event listeners
 elements.countdownForm.addEventListener('submit', getInput);

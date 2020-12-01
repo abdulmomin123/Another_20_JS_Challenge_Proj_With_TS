@@ -13,7 +13,14 @@ const elements = {
     completeElInfo: document.getElementById('complete-info'),
     completeBtn: document.getElementById('complete-button'),
 };
+const today = new Date();
 // functions
+const setMinDate = () => {
+    const year = today.getFullYear();
+    const month = `${today.getMonth() + 1}`.padStart(2, '0');
+    const date = `${today.getDate()}`.padStart(2, '0');
+    elements.dateEl.setAttribute('min', `${year}-${month}-${date}`);
+};
 const getInput = (e) => {
     e.preventDefault();
     const [year, month, date] = elements.dateEl.value.split('-');
@@ -27,5 +34,6 @@ const getInput = (e) => {
     };
     return input;
 };
+setMinDate();
 // event listeners
 elements.countdownForm.addEventListener('submit', getInput);
