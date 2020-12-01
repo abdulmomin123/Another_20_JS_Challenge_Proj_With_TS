@@ -74,8 +74,6 @@ const calcRemaningTime = (futureTime: UserInput) => {
 
   let totalTime = (+new Date(year, month, date, 0, 0, 0) - Date.now()) / 1000;
 
-  console.log(totalTime);
-
   // all remaning time
   const days = Math.floor(totalTime / 60 / 60 / 24);
   totalTime %= 86400;
