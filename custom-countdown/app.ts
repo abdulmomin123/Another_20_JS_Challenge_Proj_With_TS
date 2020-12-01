@@ -102,12 +102,7 @@ const displayRemaningTime = (timeLeft: RemaningTime) => {
   const allTimes = [days, hours, minutes, seconds];
 
   elements.countdownElTitle.textContent = title;
-  elements.timeElements.forEach((time, i) =>
-    (time as HTMLElement).insertAdjacentHTML(
-      'afterbegin',
-      `<span>${allTimes[i]}</span>`
-    )
-  );
+  elements.timeElements.forEach((time, i) => console.log(time, i, allTimes));
 
   elements.inputContainer.setAttribute('hidden', '');
   elements.countdownEl.removeAttribute('hidden');
@@ -115,6 +110,11 @@ const displayRemaningTime = (timeLeft: RemaningTime) => {
 
 const saveTime = (input: UserInput) =>
   localStorage.setItem('previouslySetTime', JSON.stringify(input));
+
+const clearTime = () => {
+  clearInterval(timerId);
+  localStorage.removeItem('previouslySetTime');
+};
 
 const retriveTime = () => {
   const input = localStorage.getItem('previouslySetTime');
@@ -125,6 +125,8 @@ const retriveTime = () => {
 };
 
 const resetCountdown = () => {
+  clearTime();
+
   elements.timeElements.forEach(time =>
     (time as HTMLElement).firstElementChild?.remove()
   );
@@ -138,13 +140,13 @@ const calcAndDisplayRemaningTime = () => {
   // user input
   const input = getInput();
 
-  // calculate the remaning time
-  const remaningTime = calcRemaningTime(input);
+  timerId = setInterval(() => {
+    // calculate the remaning time
+    const remaningTime = calcRemaningTime(input);
 
-  console.log(remaningTime);
-
-  // display the remaning time
-  displayRemaningTime(remaningTime);
+    // display the remaning time
+    displayRemaningTime(remaningTime);
+  }, 1000);
 };
 
 // sets the minumum date of the date picker to today
