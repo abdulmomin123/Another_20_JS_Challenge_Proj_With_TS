@@ -63,7 +63,7 @@ const displayRemaningTime = (timeLeft) => {
     const { days, hours, minutes, seconds } = timeLeft.timeStamp;
     const allTimes = [days, hours, minutes, seconds];
     elements.countdownElTitle.textContent = title;
-    elements.timeElements.forEach((time, i) => console.log(time, i, allTimes));
+    elements.timeElements.forEach((time, i) => (time.textContent = `${allTimes[i]}`));
     elements.inputContainer.setAttribute('hidden', '');
     elements.countdownEl.removeAttribute('hidden');
 };
