@@ -142,6 +142,13 @@ const calcAndDisplayRemaningTime = () => {
   // user input
   const input = getInput();
 
+  // immediately run onece
+  // calculate the remaning time
+  const remaningTime = calcRemaningTime(input);
+
+  // display the remaning time
+  displayRemaningTime(remaningTime);
+
   timerId = setInterval(() => {
     // calculate the remaning time
     const remaningTime = calcRemaningTime(input);
