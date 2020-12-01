@@ -49,9 +49,7 @@ const setMinDate = () => {
   elements.dateEl.setAttribute('min', `${year}-${month}-${date}`);
 };
 
-const getInput = (e: Event) => {
-  e.preventDefault();
-
+const getInput = () => {
   const [year, month, date] = elements.dateEl.value.split('-');
 
   const input: UserInput = {
@@ -90,12 +88,27 @@ const retriveTime = () => {
 
 // calculates and displayes the remaning time
 const calcAndDisplayRemaningTime = () => {
-  // sets the minumum date of the date picker to today
-  setMinDate();
+  // if theres a countdown show it
+
+  // if not let user input title and date
+  const input = getInput();
+
+  // calculate the remaning time
+  const remaningTime = calcRemaningTime(input);
+
+  // display the remaning time
+  displayRemaningTime(remaningTime);
 };
+
+// sets the minumum date of the date picker to today
+setMinDate();
 
 calcAndDisplayRemaningTime();
 
 // event listeners
 // submit handler
-elements.countdownForm.addEventListener('submit', getInput);
+elements.countdownForm.addEventListener('submit', e => {
+  e.preventDefault();
+
+  calcAndDisplayRemaningTime();
+});

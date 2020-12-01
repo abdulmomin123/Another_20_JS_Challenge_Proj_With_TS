@@ -52,10 +52,14 @@ const retriveTime = () => {
 };
 // calculates and displayes the remaning time
 const calcAndDisplayRemaningTime = () => {
-    // sets the minumum date of the date picker to today
-    setMinDate();
+    // if theres a countdown show it
+    // if not let user input title and date
+    // calculate the remaning time
+    //   display the remaning time
 };
+// sets the minumum date of the date picker to today
+setMinDate();
 calcAndDisplayRemaningTime();
 // event listeners
 // submit handler
-elements.countdownForm.addEventListener('submit', getInput);
+elements.countdownForm.addEventListener('submit', calcAndDisplayRemaningTime);
