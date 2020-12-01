@@ -31,6 +31,13 @@ interface UserInput {
   };
 }
 
+interface RemaningTime {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
 const today = new Date();
 
 // functions
@@ -59,7 +66,19 @@ const getInput = (e: Event) => {
   return input;
 };
 
+// calculates the remaning time from today based on future time
+const calcRemaningTime = () => {
+  //
+};
+
+// displays the remaning time calculated by calRemaningTime
+const displayRemaningTime = () => {
+  //
+};
+
+// sets the minumum date of the date picker to today
 setMinDate();
 
 // event listeners
+// submit handler
 elements.countdownForm.addEventListener('submit', getInput);

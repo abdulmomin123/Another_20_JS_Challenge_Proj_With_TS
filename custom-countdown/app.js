@@ -34,6 +34,16 @@ const getInput = (e) => {
     };
     return input;
 };
+// calculates the remaning time from today based on future time
+const calcRemaningTime = () => {
+    //
+};
+// displays the remaning time calculated by calRemaningTime
+const displayRemaningTime = () => {
+    //
+};
+// sets the minumum date of the date picker to today
 setMinDate();
 // event listeners
+// submit handler
 elements.countdownForm.addEventListener('submit', getInput);
