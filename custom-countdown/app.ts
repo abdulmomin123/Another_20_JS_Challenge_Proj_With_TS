@@ -67,13 +67,17 @@ const getInput = (e: Event) => {
 };
 
 // calculates the remaning time from today based on future time
-const calcRemaningTime = () => {
-  //
+const calcRemaningTime = (futureTime: UserInput) => {
+  const { date, month, year } = futureTime.timeStamp;
+
+  console.log(date, month, year);
 };
 
 // displays the remaning time calculated by calRemaningTime
-const displayRemaningTime = () => {
-  //
+const displayRemaningTime = (timeLeft: RemaningTime) => {
+  const { days, hours, minutes, seconds } = timeLeft;
+
+  console.log(days, hours, minutes, seconds);
 };
 
 // sets the minumum date of the date picker to today
