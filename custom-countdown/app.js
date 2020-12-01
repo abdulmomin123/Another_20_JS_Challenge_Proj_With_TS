@@ -21,8 +21,7 @@ const setMinDate = () => {
     const date = `${today.getDate()}`.padStart(2, '0');
     elements.dateEl.setAttribute('min', `${year}-${month}-${date}`);
 };
-const getInput = (e) => {
-    e.preventDefault();
+const getInput = () => {
     const [year, month, date] = elements.dateEl.value.split('-');
     const input = {
         title: elements.inputTitle.value,
@@ -38,10 +37,20 @@ const getInput = (e) => {
 const calcRemaningTime = (futureTime) => {
     const { date, month, year } = futureTime.timeStamp;
     console.log(date, month, year);
+    return {
+        days: 30,
+        hours: 24,
+        minutes: 60,
+        seconds: 60,
+    };
 };
 // displays the remaning time calculated by calRemaningTime
 const displayRemaningTime = (timeLeft) => {
     const { days, hours, minutes, seconds } = timeLeft;
+    const allTimes = [days, hours, minutes, seconds];
+    elements.timeElements.forEach((time, i) => time.insertAdjacentHTML('afterbegin', `<span>${allTimes[i]}</span>`));
+    elements.inputContainer.setAttribute('hidden', '');
+    elements.countdownEl.removeAttribute('hidden');
     console.log(days, hours, minutes, seconds);
 };
 const saveTime = () => {
@@ -50,16 +59,28 @@ const saveTime = () => {
 const retriveTime = () => {
     //
 };
+const resetCountdown = () => {
+    elements.timeElements.forEach(time => time.firstElementChild?.remove());
+    elements.inputContainer.removeAttribute('hidden');
+    elements.countdownEl.setAttribute('hidden', '');
+};
 // calculates and displayes the remaning time
 const calcAndDisplayRemaningTime = () => {
-    // if theres a countdown show it
-    // if not let user input title and date
+    // user input
+    const input = getInput();
     // calculate the remaning time
-    //   display the remaning time
+    const remaningTime = calcRemaningTime(input);
+    console.log(remaningTime);
+    //   // display the remaning time
+    displayRemaningTime(remaningTime);
 };
 // sets the minumum date of the date picker to today
 setMinDate();
-calcAndDisplayRemaningTime();
 // event listeners
 // submit handler
-elements.countdownForm.addEventListener('submit', calcAndDisplayRemaningTime);
+elements.countdownForm.addEventListener('submit', e => {
+    e.preventDefault();
+    calcAndDisplayRemaningTime();
+});
+// reset timer handler
+elements.countdownBtn.addEventListener('click', resetCountdown);

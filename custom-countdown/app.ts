@@ -67,13 +67,30 @@ const getInput = () => {
 // calculates the remaning time from today based on future time
 const calcRemaningTime = (futureTime: UserInput) => {
   const { date, month, year } = futureTime.timeStamp;
-
   console.log(date, month, year);
+
+  return {
+    days: 30,
+    hours: 24,
+    minutes: 60,
+    seconds: 60,
+  };
 };
 
 // displays the remaning time calculated by calRemaningTime
 const displayRemaningTime = (timeLeft: RemaningTime) => {
   const { days, hours, minutes, seconds } = timeLeft;
+  const allTimes = [days, hours, minutes, seconds];
+
+  elements.timeElements.forEach((time, i) =>
+    (time as HTMLElement).insertAdjacentHTML(
+      'afterbegin',
+      `<span>${allTimes[i]}</span>`
+    )
+  );
+
+  elements.inputContainer.setAttribute('hidden', '');
+  elements.countdownEl.removeAttribute('hidden');
 
   console.log(days, hours, minutes, seconds);
 };
@@ -86,24 +103,30 @@ const retriveTime = () => {
   //
 };
 
+const resetCountdown = () => {
+  elements.timeElements.forEach(time =>
+    (time as HTMLElement).firstElementChild?.remove()
+  );
+
+  elements.inputContainer.removeAttribute('hidden');
+  elements.countdownEl.setAttribute('hidden', '');
+};
+
 // calculates and displayes the remaning time
 const calcAndDisplayRemaningTime = () => {
-  // if theres a countdown show it
-
-  // if not let user input title and date
+  // user input
   const input = getInput();
 
   // calculate the remaning time
   const remaningTime = calcRemaningTime(input);
 
-  // display the remaning time
+  console.log(remaningTime);
+  //   // display the remaning time
   displayRemaningTime(remaningTime);
 };
 
 // sets the minumum date of the date picker to today
 setMinDate();
-
-calcAndDisplayRemaningTime();
 
 // event listeners
 // submit handler
@@ -112,3 +135,6 @@ elements.countdownForm.addEventListener('submit', e => {
 
   calcAndDisplayRemaningTime();
 });
+
+// reset timer handler
+elements.countdownBtn.addEventListener('click', resetCountdown);
