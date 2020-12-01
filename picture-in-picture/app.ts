@@ -3,7 +3,7 @@ const videoElement = document.getElementById('video') as any;
 const button = document.getElementById('button') as HTMLButtonElement;
 
 // Workaround the TypeScript Bug of not having getDisplayMedia
-// and
+// method
 const mediaDevices = navigator.mediaDevices as any;
 
 // functions
