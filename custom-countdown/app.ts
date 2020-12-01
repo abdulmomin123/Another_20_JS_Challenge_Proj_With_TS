@@ -110,6 +110,23 @@ const displayRemaningTime = (timeLeft: RemaningTime) => {
   elements.countdownEl.removeAttribute('hidden');
 };
 
+const calcAndDisplayRemaningTime = (input: UserInput) => {
+  // immediately run once
+  // calculate the remaning time
+  const remaningTime = calcRemaningTime(input);
+
+  // display the remaning time
+  displayRemaningTime(remaningTime);
+
+  timerId = setInterval(() => {
+    // calculate the remaning time
+    const remaningTime = calcRemaningTime(input);
+
+    // display the remaning time
+    displayRemaningTime(remaningTime);
+  }, 1000);
+};
+
 const saveTime = (input: UserInput) =>
   localStorage.setItem('previouslySetTime', JSON.stringify(input));
 
@@ -138,35 +155,39 @@ const resetCountdown = () => {
 };
 
 // calculates and displayes the remaning time
-const calcAndDisplayRemaningTime = () => {
+const presentRemaningTime = () => {
   // user input
   const input = getInput();
 
-  // immediately run onece
-  // calculate the remaning time
-  const remaningTime = calcRemaningTime(input);
+  // save user input to localStorage
+  saveTime(input);
 
-  // display the remaning time
-  displayRemaningTime(remaningTime);
-
-  timerId = setInterval(() => {
-    // calculate the remaning time
-    const remaningTime = calcRemaningTime(input);
-
-    // display the remaning time
-    displayRemaningTime(remaningTime);
-  }, 1000);
+  //   display remaning time
+  calcAndDisplayRemaningTime(input);
 };
 
-// sets the minumum date of the date picker to today
-setMinDate();
+const initialize = () => {
+  // sets the minumum date of the date picker to today
+  setMinDate();
+
+  // load save timer if exists
+  if (retriveTime()) {
+    // get the saved input
+    const input = retriveTime();
+
+    // calculate remaning time based on saved input
+    calcAndDisplayRemaningTime(input);
+  }
+};
+
+initialize();
 
 // event listeners
 // submit handler
 elements.countdownForm.addEventListener('submit', e => {
   e.preventDefault();
 
-  calcAndDisplayRemaningTime();
+  presentRemaningTime();
 });
 
 // reset timer handler
