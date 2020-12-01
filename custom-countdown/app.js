@@ -25,7 +25,7 @@ const getInput = (e) => {
             year: +year,
         },
     };
-    console.log(input);
+    return input;
 };
 // event listeners
 elements.countdownForm.addEventListener('submit', getInput);

@@ -46,7 +46,7 @@ const getInput = (e: Event) => {
     },
   };
 
-  console.log(input);
+  return input;
 };
 
 // event listeners
