@@ -1,12 +1,27 @@
-const countdownForm = document.getElementById('countdownForm');
-const inputContainer = document.getElementById('input-container');
-const dateEl = document.getElementById('date-picker');
+// dom elements
+const elements = {
+  countdownForm: document.getElementById('countdownForm') as HTMLFormElement,
+  inputContainer: document.getElementById('input-container') as HTMLDivElement,
+  dateEl: document.getElementById('date-picker') as HTMLInputElement,
 
-const countdownEl = document.getElementById('countdown');
-const countdownElTitle = document.getElementById('countdown-title');
-const countdownBtn = document.getElementById('countdown-button');
-const timeElements = document.querySelectorAll('span');
+  countdownEl: document.getElementById('countdown') as HTMLDivElement,
+  countdownElTitle: document.getElementById(
+    'countdown-title'
+  ) as HTMLHeadingElement,
+  countdownBtn: document.getElementById(
+    'countdown-button'
+  ) as HTMLButtonElement,
+  timeElements: document.querySelectorAll('span') as NodeList,
 
-const completeEl = document.getElementById('complete');
-const completeElInfo = document.getElementById('complete-info');
-const completeBtn = document.getElementById('complete-button');
+  completeEl: document.getElementById('complete') as HTMLDivElement,
+  completeElInfo: document.getElementById(
+    'complete-info'
+  ) as HTMLHeadingElement,
+  completeBtn: document.getElementById('complete-button') as HTMLButtonElement,
+};
+
+// global variables
+
+// functions
+
+// event listeners
