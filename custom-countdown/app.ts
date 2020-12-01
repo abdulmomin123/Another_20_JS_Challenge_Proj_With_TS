@@ -80,13 +80,21 @@ const displayRemaningTime = (timeLeft: RemaningTime) => {
   console.log(days, hours, minutes, seconds);
 };
 
-// calculates and displayes the remaning time
-const calcAndDisplayRemaningTime = () => {
+const saveTime = () => {
   //
 };
 
-// sets the minumum date of the date picker to today
-setMinDate();
+const retriveTime = () => {
+  //
+};
+
+// calculates and displayes the remaning time
+const calcAndDisplayRemaningTime = () => {
+  // sets the minumum date of the date picker to today
+  setMinDate();
+};
+
+calcAndDisplayRemaningTime();
 
 // event listeners
 // submit handler
