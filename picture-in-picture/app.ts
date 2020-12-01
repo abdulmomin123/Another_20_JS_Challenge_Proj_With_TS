@@ -8,15 +8,12 @@ const mediaDevices = navigator.mediaDevices as any;
 
 // functions
 const askForScreen = async () => {
-  const stream = await mediaDevices.getDisplayMedia();
-
-  videoElement.srcObject = stream;
+  videoElement.srcObject = await mediaDevices.getDisplayMedia();
   await videoElement.play();
 };
 
 const togglePictureInPicture = async () => {
   await askForScreen();
-
   videoElement.requestPictureInPicture();
 };
 

@@ -7,8 +7,7 @@ const button = document.getElementById('button');
 const mediaDevices = navigator.mediaDevices;
 // functions
 const askForScreen = async () => {
-    const stream = await mediaDevices.getDisplayMedia();
-    videoElement.srcObject = stream;
+    videoElement.srcObject = await mediaDevices.getDisplayMedia();
     await videoElement.play();
 };
 const togglePictureInPicture = async () => {
