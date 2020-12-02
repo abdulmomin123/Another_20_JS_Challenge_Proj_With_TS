@@ -44,25 +44,27 @@ const highlightSelection = (e: Event) => {
 };
 
 const displayCountdown = (countdown: number = 3) => {
-  let intervalId: number;
-  let remaingTime = countdown;
+  return new Promise(resolve => {
+    let intervalId: number;
+    let remaingTime = countdown;
 
-  elements.splashPage.setAttribute('hidden', '');
-  elements.countdownPage.removeAttribute('hidden');
-
-  elements.countdown.textContent = `${remaingTime}`;
-  remaingTime--;
-
-  intervalId = setInterval(() => {
-    if (remaingTime < 1) {
-      elements.countdown.textContent = 'Go!';
-      clearInterval(intervalId);
-      return;
-    }
+    elements.splashPage.setAttribute('hidden', '');
+    elements.countdownPage.removeAttribute('hidden');
 
     elements.countdown.textContent = `${remaingTime}`;
     remaingTime--;
-  }, 1000);
+
+    intervalId = setInterval(() => {
+      if (remaingTime < 1) {
+        elements.countdown.textContent = 'Go!';
+        clearInterval(intervalId);
+        resolve();
+      }
+
+      elements.countdown.textContent = `${remaingTime}`;
+      remaingTime--;
+    }, 1000);
+  });
 };
 
 const createRandomQuestions = () => {
@@ -70,7 +72,8 @@ const createRandomQuestions = () => {
 };
 
 const displayQuestions = () => {
-  //
+  elements.countdownPage.setAttribute('hidden', '');
+  elements.gamePage.removeAttribute('hidden');
 };
 
 const trackTime = () => {
@@ -81,10 +84,12 @@ const evaluateAnswer = () => {
   //
 };
 
-const startRound = (e: Event) => {
+const startRound = async (e: Event) => {
   e.preventDefault();
 
-  displayCountdown();
+  await displayCountdown();
+
+  displayQuestions();
 };
 
 // event listeners
