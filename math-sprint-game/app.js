@@ -27,8 +27,10 @@ const elements = {
 let questions = [];
 let answers = [];
 let questionsCount;
-let correctAns;
-let wrongAns;
+let timerId;
+let passedSeconds = 0;
+let correctAns = 0;
+let wrongAns = 0;
 // functions
 const shuffleArr = (arr) => {
     let m = arr.length, t, i;
