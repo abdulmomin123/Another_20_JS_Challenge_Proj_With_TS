@@ -105,6 +105,11 @@ const createRandomQuestions = (amount: number) => {
 const displayQuestions = () => {
   const shuffledAnswers = shuffleArr([...answers]);
 
+  elements.itemContainer.innerHTML = `
+    <div class="height-240"></div>
+    <div class="selected-item"></div>
+  `;
+
   questions.forEach((question, i) => {
     const markup = `
       <div class="item"><h1>${question} = ${shuffledAnswers[i]}</h1></div>
