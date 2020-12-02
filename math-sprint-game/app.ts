@@ -55,13 +55,14 @@ const displayCountdown = (countdown: number = 3) => {
     remaingTime--;
 
     intervalId = setInterval(() => {
-      if (remaingTime < 1) {
-        elements.countdown.textContent = 'Go!';
+      if (remaingTime < 0) {
         clearInterval(intervalId);
         resolve();
       }
 
-      elements.countdown.textContent = `${remaingTime}`;
+      elements.countdown.textContent = `${
+        remaingTime > 0 ? remaingTime : 'Go!'
+      }`;
       remaingTime--;
     }, 1000);
   });
