@@ -7,7 +7,9 @@ const elements = {
   countdownPage: document.getElementById('countdown-page') as HTMLDivElement,
   // Splash Page
   startForm: document.getElementById('start-form') as HTMLFormElement,
-  radioContainers: document.querySelectorAll('.radio-container') as NodeList,
+  radioContainers: [
+    ...(document.querySelectorAll('.radio-container') as NodeList),
+  ],
   radioInputs: document.querySelectorAll('input') as NodeList,
   bestScores: document.querySelectorAll('.best-score-value') as NodeList,
   // Countdown Page
@@ -22,6 +24,7 @@ const elements = {
 };
 
 // global variables
+let questionsCount: number;
 let correctAns: number;
 let wrongAns: number;
 
@@ -36,6 +39,8 @@ const highlightSelection = (e: Event) => {
   );
 
   (target.parentNode as HTMLDivElement).classList.add('selected-label');
+
+  questionsCount = +target.value;
 };
 
 const displayCountdown = (_countdown: number) => {
@@ -60,11 +65,9 @@ const evaluateAnswer = () => {
 
 const startRound = (e: Event) => {
   e.preventDefault();
-
-  console.log(e);
 };
 
 // event listeners
-elements.startForm.addEventListener('submit', startRound);
-
 elements.startForm.addEventListener('click', highlightSelection);
+
+elements.startForm.addEventListener('submit', startRound);
