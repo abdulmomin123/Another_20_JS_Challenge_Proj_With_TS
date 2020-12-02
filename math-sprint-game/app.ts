@@ -31,6 +31,25 @@ let correctAns: number;
 let wrongAns: number;
 
 // functions
+const shuffleArr = (arr: any[]) => {
+  let m = arr.length,
+    t: any,
+    i: any;
+
+  // While there remain elements to shuffle…
+  while (m) {
+    // Pick a remaining element…
+    i = Math.floor(Math.random() * m--);
+
+    // And swap it with the current element.
+    t = arr[m];
+    arr[m] = arr[i];
+    arr[i] = t;
+  }
+
+  return arr;
+};
+
 const highlightSelection = (e: Event) => {
   const target = e.target as HTMLInputElement;
 
@@ -84,9 +103,11 @@ const createRandomQuestions = (amount: number) => {
 };
 
 const displayQuestions = () => {
+  const shuffledAnswers = shuffleArr([...answers]);
+
   questions.forEach((question, i) => {
     const markup = `
-      <div class="item"><h1>${question} = ${answers[i]}</h1></div>
+      <div class="item"><h1>${question} = ${shuffledAnswers[i]}</h1></div>
     `;
 
     elements.itemContainer.insertAdjacentHTML('beforeend', markup);
