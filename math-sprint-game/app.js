@@ -24,6 +24,8 @@ const elements = {
     playAgainBtn: document.querySelector('.play-again'),
 };
 // global variables
+let questions = [];
+let answers = [];
 let questionsCount;
 let correctAns;
 let wrongAns;
@@ -54,10 +56,24 @@ const displayCountdown = (countdown = 3) => {
         }, 1000);
     });
 };
-const createRandomQuestions = () => {
-    //
+const createRandomQuestions = (amount) => {
+    let randomDigit = Math.floor(Math.random() * 10);
+    for (let i = 0; i < amount; i++) {
+        const firstDigit = randomDigit;
+        randomDigit = Math.floor(Math.random() * 10);
+        const secondDigit = randomDigit;
+        questions.push(`${firstDigit} x ${secondDigit}`);
+        answers.push(firstDigit * secondDigit);
+    }
 };
 const displayQuestions = () => {
+    questions.forEach((question, i) => {
+        const markup = `
+      <div class="item"><h1>${question} = ${answers[i]}</h1></div>
+    `;
+        elements.itemContainer.insertAdjacentHTML('beforeend', markup);
+    });
+    elements.itemContainer.insertAdjacentHTML('beforeend', '<div class="height-500"></div>');
     elements.countdownPage.setAttribute('hidden', '');
     elements.gamePage.removeAttribute('hidden');
 };
@@ -69,7 +85,9 @@ const evaluateAnswer = () => {
 };
 const startRound = async (e) => {
     e.preventDefault();
+    // if (!questionsCount) return;
     await displayCountdown();
+    createRandomQuestions(10);
     displayQuestions();
 };
 // event listeners
