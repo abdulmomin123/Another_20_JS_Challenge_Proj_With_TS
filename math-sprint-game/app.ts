@@ -16,6 +16,7 @@ const elements = {
   countdown: document.querySelector('.countdown') as HTMLHeadingElement,
   // Game Page
   itemContainer: document.querySelector('.item-container') as HTMLDivElement,
+  itemFooter: document.querySelector('.item-footer') as HTMLDivElement,
   // Score Page
   finalTimeEl: document.querySelector('.final-time') as HTMLHeadingElement,
   baseTimeEl: document.querySelector('.base-time') as HTMLHeadingElement,
@@ -55,7 +56,7 @@ const shuffleArr = (arr: any[]) => {
 const highlightSelection = (e: Event) => {
   const target = e.target as HTMLInputElement;
 
-  if (!target.type) return;
+  if (target.type !== 'radio') return;
 
   elements.radioContainers.forEach(container =>
     (container as HTMLDivElement).classList.remove('selected-label')
@@ -134,18 +135,26 @@ const trackTime = () => {
   }, 50);
 };
 
-const evaluateAnswer = () => {
-  //
+const evaluateAnswer = (e: Event) => {
+  const target = e.target as HTMLButtonElement;
+
+  if (
+    !target.classList.contains('right') &&
+    !target.classList.contains('wrong')
+  )
+    return;
+
+  console.log(e);
 };
 
 const startRound = async (e: Event) => {
   e.preventDefault();
 
-  // if (!questionsCount) return;
+  if (!questionsCount) return;
 
   await displayCountdown();
 
-  createRandomQuestions(10);
+  createRandomQuestions(questionsCount);
 
   displayQuestions();
 
@@ -156,3 +165,5 @@ const startRound = async (e: Event) => {
 elements.startForm.addEventListener('click', highlightSelection);
 
 elements.startForm.addEventListener('submit', startRound);
+
+elements.itemFooter.addEventListener('click', evaluateAnswer);

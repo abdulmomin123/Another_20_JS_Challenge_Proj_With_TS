@@ -17,6 +17,7 @@ const elements = {
     countdown: document.querySelector('.countdown'),
     // Game Page
     itemContainer: document.querySelector('.item-container'),
+    itemFooter: document.querySelector('.item-footer'),
     // Score Page
     finalTimeEl: document.querySelector('.final-time'),
     baseTimeEl: document.querySelector('.base-time'),
@@ -47,7 +48,7 @@ const shuffleArr = (arr) => {
 };
 const highlightSelection = (e) => {
     const target = e.target;
-    if (!target.type)
+    if (target.type !== 'radio')
         return;
     elements.radioContainers.forEach(container => container.classList.remove('selected-label'));
     target.parentNode.classList.add('selected-label');
@@ -102,17 +103,23 @@ const trackTime = () => {
         passedSeconds += 0.05;
     }, 50);
 };
-const evaluateAnswer = () => {
-    //
+const evaluateAnswer = (e) => {
+    const target = e.target;
+    if (!target.classList.contains('right') &&
+        !target.classList.contains('wrong'))
+        return;
+    console.log(e);
 };
 const startRound = async (e) => {
     e.preventDefault();
-    // if (!questionsCount) return;
+    if (!questionsCount)
+        return;
     await displayCountdown();
-    createRandomQuestions(10);
+    createRandomQuestions(questionsCount);
     displayQuestions();
     trackTime();
 };
 // event listeners
 elements.startForm.addEventListener('click', highlightSelection);
 elements.startForm.addEventListener('submit', startRound);
+elements.itemFooter.addEventListener('click', evaluateAnswer);
