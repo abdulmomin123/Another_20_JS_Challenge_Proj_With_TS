@@ -98,7 +98,9 @@ const displayQuestions = () => {
     elements.gamePage.removeAttribute('hidden');
 };
 const trackTime = () => {
-    //
+    timerId = setInterval(() => {
+        passedSeconds += 0.05;
+    }, 50);
 };
 const evaluateAnswer = () => {
     //
@@ -109,6 +111,7 @@ const startRound = async (e) => {
     await displayCountdown();
     createRandomQuestions(10);
     displayQuestions();
+    trackTime();
 };
 // event listeners
 elements.startForm.addEventListener('click', highlightSelection);

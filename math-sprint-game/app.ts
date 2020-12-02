@@ -129,7 +129,9 @@ const displayQuestions = () => {
 };
 
 const trackTime = () => {
-  //
+  timerId = setInterval(() => {
+    passedSeconds += 0.05;
+  }, 50);
 };
 
 const evaluateAnswer = () => {
@@ -146,6 +148,8 @@ const startRound = async (e: Event) => {
   createRandomQuestions(10);
 
   displayQuestions();
+
+  trackTime();
 };
 
 // event listeners
