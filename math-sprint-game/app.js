@@ -24,12 +24,14 @@ const elements = {
     penaltyTimeEl: document.querySelector('.penalty-time'),
     playAgainBtn: document.querySelector('.play-again'),
 };
-// global variables
 let questions = [];
 let answers = [];
+let userQuestions;
+let options = [];
 let questionsCount;
 let timerId;
 let passedSeconds = 0;
+let nextToEval = 0;
 let correctAns = 0;
 let wrongAns = 0;
 // functions
@@ -108,7 +110,8 @@ const evaluateAnswer = (e) => {
     if (!target.classList.contains('right') &&
         !target.classList.contains('wrong'))
         return;
-    console.log(e);
+    elements.itemContainer.scrollTop += document.querySelector('.item').offsetHeight;
+    console.log(elements.itemContainer.scrollBy());
 };
 const startRound = async (e) => {
     e.preventDefault();

@@ -25,13 +25,22 @@ const elements = {
 };
 
 // global variables
+interface Option {
+  firstDigit: number;
+  secondDigit: number;
+  givenSum: number;
+}
+
 let questions: string[] = [];
 let answers: number[] = [];
+let userQuestions;
+let options: Option[] = [];
 let questionsCount: number;
 let timerId: number;
-let passedSeconds: number = 0;
-let correctAns: number = 0;
-let wrongAns: number = 0;
+let passedSeconds = 0;
+let nextToEval = 0;
+let correctAns = 0;
+let wrongAns = 0;
 
 // functions
 const shuffleArr = (arr: any[]) => {
@@ -144,7 +153,11 @@ const evaluateAnswer = (e: Event) => {
   )
     return;
 
-  console.log(e);
+  elements.itemContainer.scrollTop += (document.querySelector(
+    '.item'
+  ) as HTMLDivElement).offsetHeight;
+
+  console.log(elements.itemContainer.scrollBy());
 };
 
 const startRound = async (e: Event) => {
