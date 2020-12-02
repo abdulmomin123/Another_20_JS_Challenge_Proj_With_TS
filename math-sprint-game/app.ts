@@ -43,8 +43,26 @@ const highlightSelection = (e: Event) => {
   questionsCount = +target.value;
 };
 
-const displayCountdown = (_countdown: number) => {
-  //
+const displayCountdown = (countdown: number = 3) => {
+  let intervalId: number;
+  let remaingTime = countdown;
+
+  elements.splashPage.setAttribute('hidden', '');
+  elements.countdownPage.removeAttribute('hidden');
+
+  elements.countdown.textContent = `${remaingTime}`;
+  remaingTime--;
+
+  intervalId = setInterval(() => {
+    if (remaingTime < 1) {
+      elements.countdown.textContent = 'Go!';
+      clearInterval(intervalId);
+      return;
+    }
+
+    elements.countdown.textContent = `${remaingTime}`;
+    remaingTime--;
+  }, 1000);
 };
 
 const createRandomQuestions = () => {
@@ -65,6 +83,8 @@ const evaluateAnswer = () => {
 
 const startRound = (e: Event) => {
   e.preventDefault();
+
+  displayCountdown();
 };
 
 // event listeners

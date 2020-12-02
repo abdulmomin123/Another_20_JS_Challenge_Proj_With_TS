@@ -36,8 +36,22 @@ const highlightSelection = (e) => {
     target.parentNode.classList.add('selected-label');
     questionsCount = +target.value;
 };
-const displayCountdown = (_countdown) => {
-    //
+const displayCountdown = (countdown = 3) => {
+    let intervalId;
+    let remaingTime = countdown;
+    elements.splashPage.setAttribute('hidden', '');
+    elements.countdownPage.removeAttribute('hidden');
+    elements.countdown.textContent = `${remaingTime}`;
+    remaingTime--;
+    intervalId = setInterval(() => {
+        if (remaingTime < 1) {
+            elements.countdown.textContent = 'Go!';
+            clearInterval(intervalId);
+            return;
+        }
+        elements.countdown.textContent = `${remaingTime}`;
+        remaingTime--;
+    }, 1000);
 };
 const createRandomQuestions = () => {
     //
@@ -53,6 +67,7 @@ const evaluateAnswer = () => {
 };
 const startRound = (e) => {
     e.preventDefault();
+    displayCountdown();
 };
 // event listeners
 elements.startForm.addEventListener('click', highlightSelection);
