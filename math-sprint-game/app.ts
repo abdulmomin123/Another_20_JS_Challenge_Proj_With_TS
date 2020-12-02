@@ -22,7 +22,49 @@ const elements = {
 };
 
 // global variables
+let correctAns: number;
+let wrongAns: number;
 
 // functions
+const highlightSelection = (e: Event) => {
+  const target = e.target as HTMLInputElement;
+
+  if (!target.type) return;
+
+  elements.radioContainers.forEach(container =>
+    (container as HTMLDivElement).classList.remove('selected-label')
+  );
+
+  (target.parentNode as HTMLDivElement).classList.add('selected-label');
+};
+
+const displayCountdown = (_countdown: number) => {
+  //
+};
+
+const createRandomQuestions = () => {
+  //
+};
+
+const displayQuestions = () => {
+  //
+};
+
+const trackTime = () => {
+  //
+};
+
+const evaluateAnswer = () => {
+  //
+};
+
+const startRound = (e: Event) => {
+  e.preventDefault();
+
+  console.log(e);
+};
 
 // event listeners
+elements.startForm.addEventListener('submit', startRound);
+
+elements.startForm.addEventListener('click', highlightSelection);

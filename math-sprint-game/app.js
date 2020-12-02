@@ -22,5 +22,35 @@ const elements = {
     playAgainBtn: document.querySelector('.play-again'),
 };
 // global variables
+let correctAns;
+let wrongAns;
 // functions
+const highlightSelection = (e) => {
+    const target = e.target;
+    if (!target.type)
+        return;
+    elements.radioContainers.forEach(container => container.classList.remove('selected-label'));
+    target.parentNode.classList.add('selected-label');
+};
+const displayCountdown = (_countdown) => {
+    //
+};
+const createRandomQuestions = () => {
+    //
+};
+const displayQuestions = () => {
+    //
+};
+const trackTime = () => {
+    //
+};
+const evaluateAnswer = () => {
+    //
+};
+const startRound = (e) => {
+    e.preventDefault();
+    console.log(e);
+};
 // event listeners
+elements.startForm.addEventListener('submit', startRound);
+elements.startForm.addEventListener('click', highlightSelection);
