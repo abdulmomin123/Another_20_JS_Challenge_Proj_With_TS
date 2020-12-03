@@ -24,7 +24,7 @@ const elements = {
     penaltyTimeEl: document.querySelector('.penalty-time'),
     playAgainBtn: document.querySelector('.play-again'),
 };
-let randomQuestions = [];
+let questions = [];
 let answers = [];
 let currentQuestion = 0;
 let questionsCount;
@@ -79,17 +79,20 @@ const createRandomQuestions = (amount) => {
         const firstDigit = randomDigit;
         randomDigit = Math.floor(Math.random() * 10);
         const secondDigit = randomDigit;
-        randomQuestions.push({ firstDigit, secondDigit });
+        questions.push({ firstDigit, secondDigit });
         answers.push(firstDigit * secondDigit);
     }
 };
 const displayQuestions = () => {
+    // shuffling the answers
     const shuffledAnswers = shuffleArr([...answers]);
+    // assigning each shuffeled answer to each of the questions
+    shuffledAnswers.forEach((answer, i) => (questions[i].givenAnswer = answer));
     elements.itemContainer.innerHTML = `
     <div class="height-240"></div>
     <div class="selected-item"></div>
   `;
-    randomQuestions.forEach((question, i) => {
+    questions.forEach((question, i) => {
         const { firstDigit, secondDigit } = question;
         const markup = `
       <div class="item"><h1>${firstDigit} x ${secondDigit} = ${shuffledAnswers[i]}</h1></div>
@@ -114,6 +117,16 @@ const evaluateAnswer = (e) => {
     elements.itemContainer.scrollTop =
         document.querySelector('.item').offsetHeight *
             (currentQuestion + 1);
+    // the evaluation of user answer
+    const { firstDigit, secondDigit, givenAnswer } = questions[currentQuestion];
+    console.log(questions[currentQuestion]);
+    if (target.classList.contains('right')) {
+        firstDigit * secondDigit === givenAnswer ? correctAns++ : wrongAns++;
+    }
+    else {
+        firstDigit * secondDigit !== givenAnswer ? correctAns++ : wrongAns++;
+    }
+    // update the current question
     currentQuestion++;
 };
 const startRound = async (e) => {
