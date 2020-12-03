@@ -78,6 +78,14 @@ const saveBestScore = (score: number) => {
 // displays the best score for each play mode
 const displayBestScore = () => {
   const playModes = [10, 25, 50, 99];
+
+  playModes.forEach((mode, i) => {
+    if (localStorage.getItem(`bestScore${mode}`)) {
+      const savedScore = +localStorage.getItem(`bestScore${mode}`)!;
+
+      elements.bestScores[i].textContent = `${savedScore}s`;
+    }
+  });
 };
 
 const highlightSelection = (e: Event) => {
@@ -242,6 +250,9 @@ const playAgain = () => {
   nextToEval = 0;
   correctAns = 0;
   wrongAns = 0;
+
+  // update the best scores
+  displayBestScore();
 
   // display the splash page
   elements.gamePage.setAttribute('hidden', '');
