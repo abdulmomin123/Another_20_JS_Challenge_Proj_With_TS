@@ -61,6 +61,7 @@ const shuffleArr = (arr: any[]) => {
   return arr;
 };
 
+// saves the best score to localStorage
 const saveBestScore = (score: number) => {
   // in case it's the first score of the user
   if (!localStorage.getItem(`bestScore${questionsCount}`))
@@ -74,6 +75,7 @@ const saveBestScore = (score: number) => {
     localStorage.setItem(`bestScore${questionsCount}`, `${score}`);
 };
 
+// displays the best score for each play mode
 const displayBestScore = () => {
   //
 };
