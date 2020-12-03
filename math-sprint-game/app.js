@@ -182,6 +182,7 @@ const playAgain = () => {
     elements.countdownPage.setAttribute('hidden', '');
     elements.splashPage.removeAttribute('hidden');
 };
+displayBestScore();
 // event listeners
 // highlights the selected play option
 elements.startForm.addEventListener('click', highlightSelection);

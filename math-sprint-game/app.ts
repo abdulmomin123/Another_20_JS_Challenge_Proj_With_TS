@@ -77,7 +77,7 @@ const saveBestScore = (score: number) => {
 
 // displays the best score for each play mode
 const displayBestScore = () => {
-  //
+  const playModes = [10, 25, 50, 99];
 };
 
 const highlightSelection = (e: Event) => {
@@ -249,6 +249,8 @@ const playAgain = () => {
   elements.countdownPage.setAttribute('hidden', '');
   elements.splashPage.removeAttribute('hidden');
 };
+
+displayBestScore();
 
 // event listeners
 // highlights the selected play option
