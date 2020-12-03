@@ -167,8 +167,6 @@ const evaluateAnswer = (e: Event) => {
   // the evaluation of user answer
   const { firstDigit, secondDigit, givenAnswer } = questions[currentQuestion];
 
-  console.log(questions[currentQuestion]);
-
   if (target.classList.contains('right')) {
     firstDigit * secondDigit === givenAnswer ? correctAns++ : wrongAns++;
   } else {
