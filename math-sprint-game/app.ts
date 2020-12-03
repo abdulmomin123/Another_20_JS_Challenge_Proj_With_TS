@@ -144,11 +144,8 @@ const displayQuestions = () => {
   elements.gamePage.removeAttribute('hidden');
 };
 
-const trackTime = () => {
-  timerId = setInterval(() => {
-    passedSeconds += 0.05;
-  }, 50);
-};
+const trackTime = () =>
+  (timerId = setInterval(() => (passedSeconds += 0.05), 50));
 
 const evaluateAnswer = (e: Event) => {
   const target = e.target as HTMLButtonElement;
@@ -177,7 +174,12 @@ const evaluateAnswer = (e: Event) => {
   currentQuestion++;
 
   // checking for the last question
-  if (currentQuestion === questions.length) displayResult();
+  if (currentQuestion === questions.length) {
+    // reset the scroll level of the game page
+    elements.itemContainer.scrollTop = 0;
+
+    displayResult();
+  }
 };
 
 const displayResult = () => {
@@ -213,11 +215,16 @@ const playAgain = () => {
   questions = [];
   answers = [];
   currentQuestion = 0;
-  questionsCount = 0;
   passedSeconds = 0;
   nextToEval = 0;
   correctAns = 0;
   wrongAns = 0;
+
+  // display the splash page
+  elements.gamePage.setAttribute('hidden', '');
+  elements.scorePage.setAttribute('hidden', '');
+  elements.countdownPage.setAttribute('hidden', '');
+  elements.splashPage.removeAttribute('hidden');
 };
 
 // event listeners
