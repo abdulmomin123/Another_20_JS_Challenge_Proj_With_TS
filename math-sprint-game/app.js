@@ -110,6 +110,7 @@ const evaluateAnswer = (e) => {
     if (!target.classList.contains('right') &&
         !target.classList.contains('wrong'))
         return;
+    // scroll to the next question
     elements.itemContainer.scrollTop =
         document.querySelector('.item').offsetHeight *
             (currentQuestion + 1);

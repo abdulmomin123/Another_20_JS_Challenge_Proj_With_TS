@@ -154,6 +154,7 @@ const evaluateAnswer = (e: Event) => {
   )
     return;
 
+  // scroll to the next question
   elements.itemContainer.scrollTop =
     (document.querySelector('.item') as HTMLDivElement).offsetHeight *
     (currentQuestion + 1);
