@@ -127,6 +127,18 @@ const evaluateAnswer = (e) => {
     }
     // update the current question
     currentQuestion++;
+    // checking for the last question
+    if (currentQuestion === questions.length)
+        displayResult();
+};
+const displayResult = () => {
+    // stop the timer
+    clearInterval(timerId);
+    elements.finalTimeEl.textContent = `${(passedSeconds + wrongAns).toFixed(1)}s`;
+    elements.baseTimeEl.textContent = `Base Time: ${passedSeconds.toFixed(1)}s`;
+    elements.penaltyTimeEl.textContent = `Penalty: +${wrongAns}.0s`;
+    elements.gamePage.setAttribute('hidden', '');
+    elements.scorePage.removeAttribute('hidden');
 };
 const startRound = async (e) => {
     e.preventDefault();
@@ -137,7 +149,23 @@ const startRound = async (e) => {
     displayQuestions();
     trackTime();
 };
+const playAgain = () => {
+    // reset the game
+    questions = [];
+    answers = [];
+    currentQuestion = 0;
+    questionsCount = 0;
+    passedSeconds = 0;
+    nextToEval = 0;
+    correctAns = 0;
+    wrongAns = 0;
+};
 // event listeners
+// highlights the selected play option
 elements.startForm.addEventListener('click', highlightSelection);
+// start round handler
 elements.startForm.addEventListener('submit', startRound);
+// evaluates users answer
 elements.itemFooter.addEventListener('click', evaluateAnswer);
+// play again handler
+elements.playAgainBtn.addEventListener('click', playAgain);
