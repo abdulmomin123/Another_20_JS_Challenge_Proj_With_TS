@@ -25,16 +25,14 @@ const elements = {
 };
 
 // global variables
-interface Option {
+interface Question {
   firstDigit: number;
   secondDigit: number;
-  givenSum: number;
 }
 
-let questions: string[] = [];
+let randomQuestions: Question[] = [];
 let answers: number[] = [];
-let userQuestions;
-let options: Option[] = [];
+let currentQuestion = 0;
 let questionsCount: number;
 let timerId: number;
 let passedSeconds = 0;
@@ -109,7 +107,7 @@ const createRandomQuestions = (amount: number) => {
     randomDigit = Math.floor(Math.random() * 10);
     const secondDigit = randomDigit;
 
-    questions.push(`${firstDigit} x ${secondDigit}`);
+    randomQuestions.push({ firstDigit, secondDigit });
     answers.push(firstDigit * secondDigit);
   }
 };
@@ -122,13 +120,16 @@ const displayQuestions = () => {
     <div class="selected-item"></div>
   `;
 
-  questions.forEach((question, i) => {
+  randomQuestions.forEach((question, i) => {
+    const { firstDigit, secondDigit } = question;
+
     const markup = `
-      <div class="item"><h1>${question} = ${shuffledAnswers[i]}</h1></div>
+      <div class="item"><h1>${firstDigit} x ${secondDigit} = ${shuffledAnswers[i]}</h1></div>
     `;
 
     elements.itemContainer.insertAdjacentHTML('beforeend', markup);
   });
+
   elements.itemContainer.insertAdjacentHTML(
     'beforeend',
     '<div class="height-500"></div>'
@@ -153,11 +154,11 @@ const evaluateAnswer = (e: Event) => {
   )
     return;
 
-  elements.itemContainer.scrollTop += (document.querySelector(
-    '.item'
-  ) as HTMLDivElement).offsetHeight;
+  elements.itemContainer.scrollTop =
+    (document.querySelector('.item') as HTMLDivElement).offsetHeight *
+    (currentQuestion + 1);
 
-  console.log(elements.itemContainer.scrollBy());
+  currentQuestion++;
 };
 
 const startRound = async (e: Event) => {
