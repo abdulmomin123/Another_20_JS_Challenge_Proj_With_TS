@@ -23,6 +23,15 @@ const elements = {
 };
 
 // global variables
+class Board {
+  constructor(public title: string) {
+    //
+  }
+
+  addItem() {
+    //
+  }
+}
 
 // functions
 

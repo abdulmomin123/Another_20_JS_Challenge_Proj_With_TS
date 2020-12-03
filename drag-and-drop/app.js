@@ -13,5 +13,14 @@ const elements = {
     onHoldListEl: document.getElementById('on-hold-list'),
 };
 // global variables
+class Board {
+    constructor(title) {
+        this.title = title;
+        //
+    }
+    addItem() {
+        //
+    }
+}
 // functions
 // event listeners
