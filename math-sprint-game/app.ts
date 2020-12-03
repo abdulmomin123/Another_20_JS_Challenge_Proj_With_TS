@@ -61,6 +61,23 @@ const shuffleArr = (arr: any[]) => {
   return arr;
 };
 
+const saveBestScore = (score: number) => {
+  // in case it's the first score of the user
+  if (!localStorage.getItem(`bestScore${questionsCount}`))
+    return localStorage.setItem(`bestScore${questionsCount}`, `${score}`);
+
+  // if there's already is a best score, compare it with the given score
+  const savedScore = +localStorage.getItem(`bestScore${questionsCount}`)!;
+
+  // if the new score is greater than saved one, re-save best score
+  if (score < savedScore)
+    localStorage.setItem(`bestScore${questionsCount}`, `${score}`);
+};
+
+const displayBestScore = () => {
+  //
+};
+
 const highlightSelection = (e: Event) => {
   const target = e.target as HTMLInputElement;
 
@@ -186,14 +203,18 @@ const displayResult = () => {
   // stop the timer
   clearInterval(timerId);
 
-  elements.finalTimeEl.textContent = `${(passedSeconds + wrongAns).toFixed(
-    1
-  )}s`;
+  // the final calculated time
+  const overallScore = (passedSeconds + wrongAns).toFixed(1);
+
+  elements.finalTimeEl.textContent = `${overallScore}s`;
   elements.baseTimeEl.textContent = `Base Time: ${passedSeconds.toFixed(1)}s`;
   elements.penaltyTimeEl.textContent = `Penalty: +${wrongAns}.0s`;
 
   elements.gamePage.setAttribute('hidden', '');
   elements.scorePage.removeAttribute('hidden');
+
+  // save the overall score
+  saveBestScore(+overallScore);
 };
 
 const startRound = async (e: Event) => {
