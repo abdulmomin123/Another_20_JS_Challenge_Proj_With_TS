@@ -151,8 +151,11 @@ const boards = [
 const indexOfEl = (el: HTMLElement, arr: any[]) => arr.indexOf(el);
 
 // swaps two elements of any array or the same array
-const swapElements = (_config: Swap) => {
-  //
+const swapElements = (config: Swap) => {
+  // if the drag and drop occured in the same board, then swap els
+  console.log(config);
+
+  // if the drag and drop occured in different board, them move el
 };
 
 // saves the boards to localStorage
@@ -247,5 +250,7 @@ elements.listColumns.forEach(list =>
       target.parentNode as HTMLUListElement
     );
     swapConfig.secondArr.elementIndex = +target.id;
+
+    swapElements(swapConfig);
   })
 );

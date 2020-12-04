@@ -87,8 +87,10 @@ const boards = [
 // returns the index of an element in an array
 const indexOfEl = (el, arr) => arr.indexOf(el);
 // swaps two elements of any array or the same array
-const swapElements = (_config) => {
-    //
+const swapElements = (config) => {
+    // if the drag and drop occured in the same board, then swap els
+    console.log(config);
+    // if the drag and drop occured in different board, them move el
 };
 // saves the boards to localStorage
 const saveBoards = () => {
@@ -143,4 +145,5 @@ elements.listColumns.forEach(list => list.addEventListener('drop', e => {
     // indexes of the second element
     swapConfig.secondArr.Arrindex = elements.listColumns.indexOf(target.parentNode);
     swapConfig.secondArr.elementIndex = +target.id;
+    swapElements(swapConfig);
 }));
