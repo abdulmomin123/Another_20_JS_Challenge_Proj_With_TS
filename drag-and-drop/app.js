@@ -132,8 +132,9 @@ elements.listColumns.forEach(list => list.addEventListener('focusout', e => {
 // drag handler
 elements.listColumns.forEach(list => list.addEventListener('dragstart', (e) => {
     const target = e.target;
-    const targetIndex = elements.listColumns.indexOf(target.parentNode);
-    console.log(targetIndex);
+    // indexes of the first element
+    swapConfig.firstArr.Arrindex = elements.listColumns.indexOf(target.parentNode);
+    swapConfig.firstArr.elementIndex = +target.id;
 }));
 // dragover handler
 // drop handler

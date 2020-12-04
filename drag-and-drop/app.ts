@@ -226,11 +226,12 @@ elements.listColumns.forEach(list =>
 elements.listColumns.forEach(list =>
   list.addEventListener('dragstart', (e: DragEvent) => {
     const target = e.target as HTMLUListElement;
-    const targetIndex = elements.listColumns.indexOf(
+
+    // indexes of the first element
+    swapConfig.firstArr.Arrindex = elements.listColumns.indexOf(
       target.parentNode as HTMLUListElement
     );
-
-    console.log(targetIndex);
+    swapConfig.firstArr.elementIndex = +target.id;
   })
 );
 
