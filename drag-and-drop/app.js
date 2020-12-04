@@ -130,11 +130,15 @@ elements.listColumns.forEach(list => list.addEventListener('focusout', e => {
     boards[index].updateItem(+id, update?.trim());
 }));
 // drag handler
-elements.listColumns.forEach(list => list.addEventListener('dragstart', e => {
-    console.log(e);
+elements.listColumns.forEach(list => list.addEventListener('dragstart', (e) => {
+    const target = e.target;
+    const targetIndex = elements.listColumns.indexOf(target.parentNode);
+    console.log(targetIndex);
 }));
 // dragover handler
 // drop handler
-elements.listColumns.forEach(list => list.addEventListener('drop', e => {
-    console.log(e);
-}));
+// elements.listColumns.forEach(list =>
+//   list.addEventListener('drop', e => {
+//     console.log(e);
+//   })
+// );

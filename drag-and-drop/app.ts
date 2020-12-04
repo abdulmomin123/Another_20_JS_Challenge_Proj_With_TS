@@ -224,16 +224,21 @@ elements.listColumns.forEach(list =>
 
 // drag handler
 elements.listColumns.forEach(list =>
-  list.addEventListener('dragstart', e => {
-    console.log(e);
+  list.addEventListener('dragstart', (e: DragEvent) => {
+    const target = e.target as HTMLUListElement;
+    const targetIndex = elements.listColumns.indexOf(
+      target.parentNode as HTMLUListElement
+    );
+
+    console.log(targetIndex);
   })
 );
 
 // dragover handler
 
 // drop handler
-elements.listColumns.forEach(list =>
-  list.addEventListener('drop', e => {
-    console.log(e);
-  })
-);
+// elements.listColumns.forEach(list =>
+//   list.addEventListener('drop', e => {
+//     console.log(e);
+//   })
+// );
