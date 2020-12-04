@@ -29,18 +29,23 @@ class Board {
   titleEl: HTMLHeadingElement;
   addBtn: HTMLDivElement;
   saveBtn: HTMLDivElement;
-  textBox: HTMLDivElement;
   addContainer: HTMLDivElement;
+  textBox: HTMLDivElement;
+  itemsListEl: HTMLUListElement;
+
   items: string[] = [];
 
   constructor(public title: string, public target: HTMLUListElement) {
     this.titleEl = target.querySelector('h1')!;
     this.addBtn = target.querySelector('.add-btn') as HTMLDivElement;
     this.saveBtn = target.querySelector('.add-btn.solid') as HTMLDivElement;
-    this.textBox = target.querySelector('.add-item') as HTMLDivElement;
     this.addContainer = target.querySelector(
       '.add-container'
     ) as HTMLDivElement;
+    this.textBox = target.querySelector('.add-item') as HTMLDivElement;
+    this.itemsListEl = target.querySelector(
+      '.drag-item-list'
+    ) as HTMLUListElement;
 
     // assigning the title
     this.titleEl.textContent = title;
@@ -64,7 +69,18 @@ class Board {
   }
 
   renderItems() {
-    //
+    this.itemsListEl.innerHTML = '';
+
+    this.items.forEach(item =>
+      this.itemsListEl.insertAdjacentHTML(
+        'beforeend',
+        `
+        <li id="0" class="drag-item" draggable="true" contenteditable="true">
+          ${item}
+        </li>
+        `
+      )
+    );
   }
 }
 
@@ -118,6 +134,7 @@ elements.saveItemBtns.forEach(btn =>
     // save the typed in text
     if (item.length) {
       boards[index].saveItem(item);
+      boards[index].renderItems();
     }
   })
 );

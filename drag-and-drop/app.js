@@ -25,8 +25,9 @@ class Board {
         this.titleEl = target.querySelector('h1');
         this.addBtn = target.querySelector('.add-btn');
         this.saveBtn = target.querySelector('.add-btn.solid');
-        this.textBox = target.querySelector('.add-item');
         this.addContainer = target.querySelector('.add-container');
+        this.textBox = target.querySelector('.add-item');
+        this.itemsListEl = target.querySelector('.drag-item-list');
         // assigning the title
         this.titleEl.textContent = title;
     }
@@ -43,7 +44,12 @@ class Board {
         console.log(this.items);
     }
     renderItems() {
-        //
+        this.itemsListEl.innerHTML = '';
+        this.items.forEach(item => this.itemsListEl.insertAdjacentHTML('beforeend', `
+        <li id="0" class="drag-item" draggable="true" contenteditable="true">
+          ${item}
+        </li>
+        `));
     }
 }
 // All boards
@@ -69,5 +75,6 @@ elements.saveItemBtns.forEach(btn => btn.addEventListener('click', e => {
     // save the typed in text
     if (item.length) {
         boards[index].saveItem(item);
+        boards[index].renderItems();
     }
 }));
