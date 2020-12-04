@@ -27,6 +27,28 @@ const elements = {
 };
 
 // global variables
+interface Swap {
+  firstArr: {
+    Arrindex: number;
+    elementIndex: number;
+  };
+  secondArr: {
+    Arrindex: number;
+    elementIndex: number;
+  };
+}
+
+const swapConfig: Swap = {
+  firstArr: {
+    Arrindex: 0,
+    elementIndex: 0,
+  },
+  secondArr: {
+    Arrindex: 0,
+    elementIndex: 0,
+  },
+};
+
 class Board {
   titleEl: HTMLHeadingElement;
   addBtn: HTMLDivElement;
@@ -87,7 +109,7 @@ class Board {
       this.itemsListEl.insertAdjacentHTML(
         'beforeend',
         `
-        <li id="${i}" class="drag-item" draggable="true" contenteditable="true">
+        <li id="${i}" class="drag-item" draggable="true" ondragover="event.preventDefault()" contenteditable="true">
           ${item}
         </li>
         `
@@ -127,6 +149,11 @@ const boards = [
 // functions
 // returns the index of an element in an array
 const indexOfEl = (el: HTMLElement, arr: any[]) => arr.indexOf(el);
+
+// swaps two elements of any array or the same array
+const swapElements = (_config: Swap) => {
+  //
+};
 
 // saves the boards to localStorage
 const saveBoards = () => {
@@ -192,5 +219,21 @@ elements.listColumns.forEach(list =>
     const { id, textContent: update } = target;
 
     boards[index].updateItem(+id, update?.trim()!);
+  })
+);
+
+// drag handler
+elements.listColumns.forEach(list =>
+  list.addEventListener('dragstart', e => {
+    console.log(e);
+  })
+);
+
+// dragover handler
+
+// drop handler
+elements.listColumns.forEach(list =>
+  list.addEventListener('drop', e => {
+    console.log(e);
   })
 );

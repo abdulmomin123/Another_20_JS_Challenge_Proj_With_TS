@@ -18,7 +18,16 @@ const elements = {
     completeListEl: document.getElementById('complete-list'),
     onHoldListEl: document.getElementById('on-hold-list'),
 };
-// global variables
+const swapConfig = {
+    firstArr: {
+        Arrindex: 0,
+        elementIndex: 0,
+    },
+    secondArr: {
+        Arrindex: 0,
+        elementIndex: 0,
+    },
+};
 class Board {
     constructor(title, target) {
         this.title = title;
@@ -53,7 +62,7 @@ class Board {
     renderItems() {
         this.itemsListEl.innerHTML = '';
         this.items.forEach((item, i) => this.itemsListEl.insertAdjacentHTML('beforeend', `
-        <li id="${i}" class="drag-item" draggable="true" contenteditable="true">
+        <li id="${i}" class="drag-item" draggable="true" ondragover="event.preventDefault()" contenteditable="true">
           ${item}
         </li>
         `));
@@ -77,6 +86,10 @@ const boards = [
 // functions
 // returns the index of an element in an array
 const indexOfEl = (el, arr) => arr.indexOf(el);
+// swaps two elements of any array or the same array
+const swapElements = (_config) => {
+    //
+};
 // saves the boards to localStorage
 const saveBoards = () => {
     boards.forEach((board, i) => localStorage.setItem(`board${i}`, JSON.stringify(board.items)));
@@ -115,4 +128,13 @@ elements.listColumns.forEach(list => list.addEventListener('focusout', e => {
     const index = indexOfEl(target.parentNode, elements.listColumns);
     const { id, textContent: update } = target;
     boards[index].updateItem(+id, update?.trim());
+}));
+// drag handler
+elements.listColumns.forEach(list => list.addEventListener('dragstart', e => {
+    console.log(e);
+}));
+// dragover handler
+// drop handler
+elements.listColumns.forEach(list => list.addEventListener('drop', e => {
+    console.log(e);
 }));
