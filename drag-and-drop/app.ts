@@ -96,11 +96,11 @@ class Board {
   }
 
   updateItem(indexOfItem: number, update: string) {
-    this.items[indexOfItem] = update;
+    if (!update.length) this.items.splice(indexOfItem, 1);
+    else this.items[indexOfItem] = update;
 
+    this.renderItems();
     saveBoards();
-
-    console.log(this.items);
   }
 }
 
@@ -131,9 +131,7 @@ const indexOfEl = (el: HTMLElement, arr: any[]) => arr.indexOf(el);
 // saves the boards to localStorage
 const saveBoards = () => {
   boards.forEach((board, i) =>
-    board.items.length
-      ? localStorage.setItem(`board${i}`, JSON.stringify(board.items))
-      : null
+    localStorage.setItem(`board${i}`, JSON.stringify(board.items))
   );
 };
 

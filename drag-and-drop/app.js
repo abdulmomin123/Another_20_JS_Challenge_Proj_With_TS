@@ -59,9 +59,12 @@ class Board {
         `));
     }
     updateItem(indexOfItem, update) {
-        this.items[indexOfItem] = update;
+        if (!update.length)
+            this.items.splice(indexOfItem, 1);
+        else
+            this.items[indexOfItem] = update;
+        this.renderItems();
         saveBoards();
-        console.log(this.items);
     }
 }
 // All boards
@@ -76,9 +79,7 @@ const boards = [
 const indexOfEl = (el, arr) => arr.indexOf(el);
 // saves the boards to localStorage
 const saveBoards = () => {
-    boards.forEach((board, i) => board.items.length
-        ? localStorage.setItem(`board${i}`, JSON.stringify(board.items))
-        : null);
+    boards.forEach((board, i) => localStorage.setItem(`board${i}`, JSON.stringify(board.items)));
 };
 // renders saved boards
 const retriveBoards = () => {
