@@ -83,18 +83,17 @@ const boards = [
 ];
 
 // functions
-const indexOfEl = (el: HTMLElement, arr: any[]) {
-  // 
-}
+// returns the index of an element in an array
+const indexOfEl = (el: HTMLElement, arr: any[]) => arr.indexOf(el);
 
 // event listeners
 // Add item handler
 elements.addBtns.forEach(btn =>
   btn.addEventListener('click', e => {
-    const target = (e.target as HTMLElement).closest(
-      '.add-btn'
-    ) as HTMLDivElement;
-    const index = elements.addBtns.indexOf(target);
+    const index = indexOfEl(
+      (e.target as HTMLElement).closest('.add-btn') as HTMLDivElement,
+      elements.addBtns
+    );
 
     boards[index].displayTextbox();
   })
@@ -103,10 +102,10 @@ elements.addBtns.forEach(btn =>
 // save item handler
 elements.saveItemBtns.forEach(btn =>
   btn.addEventListener('click', e => {
-    const target = (e.target as HTMLElement).closest(
-      '.add-btn.solid'
-    ) as HTMLDivElement;
-    const index = elements.saveItemBtns.indexOf(target);
+    const index = indexOfEl(
+      (e.target as HTMLElement).closest('.solid') as HTMLDivElement,
+      elements.saveItemBtns
+    );
 
     boards[index].saveItem();
   })

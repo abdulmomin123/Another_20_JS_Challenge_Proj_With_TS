@@ -49,16 +49,16 @@ const boards = [
     new Board('On Hold', document.querySelector('.on-hold-column')),
 ];
 // functions
+// returns the index of an element in an array
+const indexOfEl = (el, arr) => arr.indexOf(el);
 // event listeners
 // Add item handler
 elements.addBtns.forEach(btn => btn.addEventListener('click', e => {
-    const target = e.target.closest('.add-btn');
-    const index = elements.addBtns.indexOf(target);
+    const index = indexOfEl(e.target.closest('.add-btn'), elements.addBtns);
     boards[index].displayTextbox();
 }));
 // save item handler
 elements.saveItemBtns.forEach(btn => btn.addEventListener('click', e => {
-    const target = e.target.closest('.add-btn.solid');
-    const index = elements.saveItemBtns.indexOf(target);
+    const index = indexOfEl(e.target.closest('.solid'), elements.saveItemBtns);
     boards[index].saveItem();
 }));
