@@ -153,9 +153,12 @@ const indexOfEl = (el: HTMLElement, arr: any[]) => arr.indexOf(el);
 // swaps two elements of any array or the same array
 const swapElements = (config: Swap) => {
   // if the drag and drop occured in the same board, then swap els
-  console.log(config);
+  if (config.firstArr.Arrindex === config.secondArr.Arrindex) {
+    console.log(config);
+  }
 
   // if the drag and drop occured in different board, them move el
+  else console.log('different boards');
 };
 
 // saves the boards to localStorage
