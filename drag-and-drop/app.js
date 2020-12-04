@@ -4,7 +4,9 @@ const elements = {
     addBtns: [
         ...document.querySelectorAll('.add-btn:not(.solid)'),
     ],
-    saveItemBtns: document.querySelectorAll('.solid'),
+    saveItemBtns: [
+        ...document.querySelectorAll('.solid'),
+    ],
     addItemContainers: document.querySelectorAll('.add-container'),
     addItems: document.querySelectorAll('.add-item'),
     // Item Lists
@@ -35,8 +37,8 @@ class Board {
         this.addBtn.classList.add('hidden');
     }
     // saves the item
-    addItem() {
-        //
+    saveItem() {
+        console.log(this);
     }
 }
 // All boards
@@ -48,9 +50,15 @@ const boards = [
 ];
 // functions
 // event listeners
-// Add handler
+// Add item handler
 elements.addBtns.forEach(btn => btn.addEventListener('click', e => {
     const target = e.target.closest('.add-btn');
     const index = elements.addBtns.indexOf(target);
     boards[index].displayTextbox();
+}));
+// save item handler
+elements.saveItemBtns.forEach(btn => btn.addEventListener('click', e => {
+    const target = e.target.closest('.add-btn.solid');
+    const index = elements.saveItemBtns.indexOf(target);
+    boards[index].saveItem();
 }));

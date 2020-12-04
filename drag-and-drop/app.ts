@@ -5,9 +5,9 @@ const elements = {
       '.add-btn:not(.solid)'
     ) as NodeListOf<HTMLDivElement>),
   ],
-  saveItemBtns: document.querySelectorAll(
-    '.solid'
-  ) as NodeListOf<HTMLButtonElement>,
+  saveItemBtns: [
+    ...(document.querySelectorAll('.solid') as NodeListOf<HTMLDivElement>),
+  ],
   addItemContainers: document.querySelectorAll(
     '.add-container'
   ) as NodeListOf<HTMLDivElement>,
@@ -57,8 +57,8 @@ class Board {
   }
 
   // saves the item
-  addItem() {
-    //
+  saveItem() {
+    console.log(this);
   }
 }
 
@@ -83,9 +83,12 @@ const boards = [
 ];
 
 // functions
+const indexOfEl = (el: HTMLElement, arr: any[]) {
+  // 
+}
 
 // event listeners
-// Add handler
+// Add item handler
 elements.addBtns.forEach(btn =>
   btn.addEventListener('click', e => {
     const target = (e.target as HTMLElement).closest(
@@ -94,5 +97,17 @@ elements.addBtns.forEach(btn =>
     const index = elements.addBtns.indexOf(target);
 
     boards[index].displayTextbox();
+  })
+);
+
+// save item handler
+elements.saveItemBtns.forEach(btn =>
+  btn.addEventListener('click', e => {
+    const target = (e.target as HTMLElement).closest(
+      '.add-btn.solid'
+    ) as HTMLDivElement;
+    const index = elements.saveItemBtns.indexOf(target);
+
+    boards[index].saveItem();
   })
 );
