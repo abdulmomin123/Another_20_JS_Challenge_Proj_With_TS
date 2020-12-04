@@ -21,6 +21,7 @@ class Board {
     constructor(title, target) {
         this.title = title;
         this.target = target;
+        this.items = [];
         this.titleEl = target.querySelector('h1');
         this.addBtn = target.querySelector('.add-btn');
         this.saveBtn = target.querySelector('.add-btn.solid');
@@ -37,8 +38,12 @@ class Board {
         this.addBtn.classList.add('hidden');
     }
     // saves the item
-    saveItem() {
-        console.log(this);
+    saveItem(item) {
+        this.items.push(item);
+        console.log(this.items);
+    }
+    renderItems() {
+        //
     }
 }
 // All boards
@@ -60,5 +65,9 @@ elements.addBtns.forEach(btn => btn.addEventListener('click', e => {
 // save item handler
 elements.saveItemBtns.forEach(btn => btn.addEventListener('click', e => {
     const index = indexOfEl(e.target.closest('.solid'), elements.saveItemBtns);
-    boards[index].saveItem();
+    const item = boards[index].textBox.textContent;
+    // save the typed in text
+    if (item.length) {
+        boards[index].saveItem(item);
+    }
 }));

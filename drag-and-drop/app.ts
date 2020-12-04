@@ -31,6 +31,7 @@ class Board {
   saveBtn: HTMLDivElement;
   textBox: HTMLDivElement;
   addContainer: HTMLDivElement;
+  items: string[] = [];
 
   constructor(public title: string, public target: HTMLUListElement) {
     this.titleEl = target.querySelector('h1')!;
@@ -57,8 +58,13 @@ class Board {
   }
 
   // saves the item
-  saveItem() {
-    console.log(this);
+  saveItem(item: string) {
+    this.items.push(item);
+    console.log(this.items);
+  }
+
+  renderItems() {
+    //
   }
 }
 
@@ -107,6 +113,11 @@ elements.saveItemBtns.forEach(btn =>
       elements.saveItemBtns
     );
 
-    boards[index].saveItem();
+    const item = boards[index].textBox.textContent!;
+
+    // save the typed in text
+    if (item.length) {
+      boards[index].saveItem(item);
+    }
   })
 );
