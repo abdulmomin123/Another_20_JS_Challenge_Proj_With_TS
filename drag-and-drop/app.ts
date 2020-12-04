@@ -29,25 +29,27 @@ const elements = {
 // global variables
 interface Swap {
   firstArr: {
-    Arrindex: number;
-    elementIndex: number;
+    arrIndexOne: number;
+    elementIndexOne: number;
   };
   secondArr: {
-    Arrindex: number;
-    elementIndex: number;
+    arrIndexTwo: number;
+    elementIndexTwo: number;
   };
 }
 
 const swapConfig: Swap = {
   firstArr: {
-    Arrindex: 0,
-    elementIndex: 0,
+    arrIndexOne: 0,
+    elementIndexOne: 0,
   },
   secondArr: {
-    Arrindex: 0,
-    elementIndex: 0,
+    arrIndexTwo: 0,
+    elementIndexTwo: 0,
   },
 };
+
+let isBeingDragged = false;
 
 class Board {
   titleEl: HTMLHeadingElement;
@@ -118,6 +120,8 @@ class Board {
   }
 
   updateItem(indexOfItem: number, update: string) {
+    if (isBeingDragged) return;
+
     if (!update.length) this.items.splice(indexOfItem, 1);
     else this.items[indexOfItem] = update;
 
@@ -152,13 +156,26 @@ const indexOfEl = (el: HTMLElement, arr: any[]) => arr.indexOf(el);
 
 // swaps two elements of any array or the same array
 const swapElements = (config: Swap) => {
+  const { arrIndexOne, elementIndexOne } = config.firstArr;
+  const { arrIndexTwo, elementIndexTwo } = config.secondArr;
+  const elementOne = boards[arrIndexOne].items[elementIndexOne];
+  const elementTwo = boards[arrIndexTwo].items[elementIndexTwo];
+
   // if the drag and drop occured in the same board, then swap els
-  if (config.firstArr.Arrindex === config.secondArr.Arrindex) {
-    console.log(config);
+  if (arrIndexOne === arrIndexTwo) {
+    boards[arrIndexOne].items[elementIndexOne] = elementTwo;
+    boards[arrIndexTwo].items[elementIndexTwo] = elementOne;
   }
 
   // if the drag and drop occured in different board, them move el
-  else console.log('different boards');
+  else console.log(elementOne, elementTwo);
+
+  // save the boards
+  saveBoards();
+
+  // re-render the boards
+  boards[arrIndexOne].renderItems();
+  boards[arrIndexTwo].renderItems();
 };
 
 // saves the boards to localStorage
@@ -234,10 +251,12 @@ elements.listColumns.forEach(list =>
     const target = e.target as HTMLUListElement;
 
     // indexes of the first element
-    swapConfig.firstArr.Arrindex = elements.listColumns.indexOf(
+    swapConfig.firstArr.arrIndexOne = elements.listColumns.indexOf(
       target.parentNode as HTMLUListElement
     );
-    swapConfig.firstArr.elementIndex = +target.id;
+    swapConfig.firstArr.elementIndexOne = +target.id;
+
+    isBeingDragged = false;
   })
 );
 
@@ -249,11 +268,12 @@ elements.listColumns.forEach(list =>
     const target = e.target as HTMLUListElement;
 
     // indexes of the second element
-    swapConfig.secondArr.Arrindex = elements.listColumns.indexOf(
+    swapConfig.secondArr.arrIndexTwo = elements.listColumns.indexOf(
       target.parentNode as HTMLUListElement
     );
-    swapConfig.secondArr.elementIndex = +target.id;
+    swapConfig.secondArr.elementIndexTwo = +target.id;
 
+    isBeingDragged = true;
     swapElements(swapConfig);
   })
 );

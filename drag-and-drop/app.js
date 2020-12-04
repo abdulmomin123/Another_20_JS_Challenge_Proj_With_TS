@@ -20,14 +20,15 @@ const elements = {
 };
 const swapConfig = {
     firstArr: {
-        Arrindex: 0,
-        elementIndex: 0,
+        arrIndexOne: 0,
+        elementIndexOne: 0,
     },
     secondArr: {
-        Arrindex: 0,
-        elementIndex: 0,
+        arrIndexTwo: 0,
+        elementIndexTwo: 0,
     },
 };
+let isBeingDragged = false;
 class Board {
     constructor(title, target) {
         this.title = title;
@@ -68,6 +69,8 @@ class Board {
         `));
     }
     updateItem(indexOfItem, update) {
+        if (isBeingDragged)
+            return;
         if (!update.length)
             this.items.splice(indexOfItem, 1);
         else
@@ -88,13 +91,23 @@ const boards = [
 const indexOfEl = (el, arr) => arr.indexOf(el);
 // swaps two elements of any array or the same array
 const swapElements = (config) => {
+    const { arrIndexOne, elementIndexOne } = config.firstArr;
+    const { arrIndexTwo, elementIndexTwo } = config.secondArr;
+    const elementOne = boards[arrIndexOne].items[elementIndexOne];
+    const elementTwo = boards[arrIndexTwo].items[elementIndexTwo];
     // if the drag and drop occured in the same board, then swap els
-    if (config.firstArr.Arrindex === config.secondArr.Arrindex) {
-        console.log(config);
+    if (arrIndexOne === arrIndexTwo) {
+        boards[arrIndexOne].items[elementIndexOne] = elementTwo;
+        boards[arrIndexTwo].items[elementIndexTwo] = elementOne;
     }
     // if the drag and drop occured in different board, them move el
     else
-        console.log('different boards');
+        console.log(elementOne, elementTwo);
+    // save the boards
+    saveBoards();
+    // re-render the boards
+    boards[arrIndexOne].renderItems();
+    boards[arrIndexTwo].renderItems();
 };
 // saves the boards to localStorage
 const saveBoards = () => {
@@ -139,15 +152,17 @@ elements.listColumns.forEach(list => list.addEventListener('focusout', e => {
 elements.listColumns.forEach(list => list.addEventListener('dragstart', (e) => {
     const target = e.target;
     // indexes of the first element
-    swapConfig.firstArr.Arrindex = elements.listColumns.indexOf(target.parentNode);
-    swapConfig.firstArr.elementIndex = +target.id;
+    swapConfig.firstArr.arrIndexOne = elements.listColumns.indexOf(target.parentNode);
+    swapConfig.firstArr.elementIndexOne = +target.id;
+    isBeingDragged = false;
 }));
 // dragover handler
 // drop handler
 elements.listColumns.forEach(list => list.addEventListener('drop', e => {
     const target = e.target;
     // indexes of the second element
-    swapConfig.secondArr.Arrindex = elements.listColumns.indexOf(target.parentNode);
-    swapConfig.secondArr.elementIndex = +target.id;
+    swapConfig.secondArr.arrIndexTwo = elements.listColumns.indexOf(target.parentNode);
+    swapConfig.secondArr.elementIndexTwo = +target.id;
+    isBeingDragged = true;
     swapElements(swapConfig);
 }));
