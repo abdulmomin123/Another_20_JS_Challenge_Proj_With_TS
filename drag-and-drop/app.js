@@ -1,7 +1,9 @@
 "use strict";
 // dom elements
 const elements = {
-    addBtns: document.querySelectorAll('.add-btn:not(.solid)'),
+    addBtns: [
+        ...document.querySelectorAll('.add-btn:not(.solid)'),
+    ],
     saveItemBtns: document.querySelectorAll('.solid'),
     addItemContainers: document.querySelectorAll('.add-container'),
     addItems: document.querySelectorAll('.add-item'),
@@ -14,13 +16,41 @@ const elements = {
 };
 // global variables
 class Board {
-    constructor(title) {
+    constructor(title, target) {
         this.title = title;
-        //
+        this.target = target;
+        this.titleEl = target.querySelector('h1');
+        this.addBtn = target.querySelector('.add-btn');
+        this.saveBtn = target.querySelector('.add-btn.solid');
+        this.textBox = target.querySelector('.add-item');
+        this.addContainer = target.querySelector('.add-container');
+        // assigning the title
+        this.titleEl.textContent = title;
     }
+    // displays the textbox upon clicking add item btn
+    displayTextbox() {
+        // show the textbox & add save item btn
+        [this.saveBtn, this.addContainer].forEach(btn => btn.classList.add('flex'));
+        // hide the add item btn
+        this.addBtn.classList.add('hidden');
+    }
+    // saves the item
     addItem() {
         //
     }
 }
+// All boards
+const boards = [
+    new Board('Backlog', document.querySelector('.backlog-column')),
+    new Board('In Progress', document.querySelector('.progress-column')),
+    new Board('Complete', document.querySelector('.complete-column')),
+    new Board('On Hold', document.querySelector('.on-hold-column')),
+];
 // functions
 // event listeners
+// Add handler
+elements.addBtns.forEach(btn => btn.addEventListener('click', e => {
+    const target = e.target.closest('.add-btn');
+    const index = elements.addBtns.indexOf(target);
+    boards[index].displayTextbox();
+}));

@@ -240,3 +240,12 @@ ul {
     margin: 10px;
   }
 }
+
+/* JS classes */
+.flex {
+  display: flex;
+}
+
+.hidden {
+  visibility: hidden;
+}
