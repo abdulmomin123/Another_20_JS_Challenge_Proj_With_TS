@@ -138,8 +138,9 @@ elements.listColumns.forEach(list => list.addEventListener('dragstart', (e) => {
 }));
 // dragover handler
 // drop handler
-// elements.listColumns.forEach(list =>
-//   list.addEventListener('drop', e => {
-//     console.log(e);
-//   })
-// );
+elements.listColumns.forEach(list => list.addEventListener('drop', e => {
+    const target = e.target;
+    // indexes of the second element
+    swapConfig.secondArr.Arrindex = elements.listColumns.indexOf(target.parentNode);
+    swapConfig.secondArr.elementIndex = +target.id;
+}));

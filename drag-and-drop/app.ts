@@ -238,8 +238,14 @@ elements.listColumns.forEach(list =>
 // dragover handler
 
 // drop handler
-// elements.listColumns.forEach(list =>
-//   list.addEventListener('drop', e => {
-//     console.log(e);
-//   })
-// );
+elements.listColumns.forEach(list =>
+  list.addEventListener('drop', e => {
+    const target = e.target as HTMLUListElement;
+
+    // indexes of the second element
+    swapConfig.secondArr.Arrindex = elements.listColumns.indexOf(
+      target.parentNode as HTMLUListElement
+    );
+    swapConfig.secondArr.elementIndex = +target.id;
+  })
+);
