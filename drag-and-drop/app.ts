@@ -15,9 +15,11 @@ const elements = {
     '.add-item'
   ) as NodeListOf<HTMLDivElement>,
   // Item Lists
-  listColumns: document.querySelectorAll(
-    '.drag-item-list'
-  ) as NodeListOf<HTMLUListElement>,
+  listColumns: [
+    ...(document.querySelectorAll(
+      '.drag-item-list'
+    ) as NodeListOf<HTMLUListElement>),
+  ],
   backlogListEl: document.getElementById('backlog-list') as HTMLUListElement,
   progressListEl: document.getElementById('progress-list') as HTMLUListElement,
   completeListEl: document.getElementById('complete-list') as HTMLUListElement,
@@ -154,6 +156,13 @@ elements.saveItemBtns.forEach(btn =>
 // update an item
 elements.listColumns.forEach(list =>
   list.addEventListener('focusout', e => {
-    console.log(e);
+    const target = e.target as HTMLUListElement;
+    const index = indexOfEl(
+      target.parentNode as HTMLElement,
+      elements.listColumns
+    );
+    const { id, textContent: update } = target;
+
+    boards[index].updateItem(+id, update?.trim()!);
   })
 );

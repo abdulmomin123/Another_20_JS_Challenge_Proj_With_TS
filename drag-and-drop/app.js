@@ -10,7 +10,9 @@ const elements = {
     addItemContainers: document.querySelectorAll('.add-container'),
     addItems: document.querySelectorAll('.add-item'),
     // Item Lists
-    listColumns: document.querySelectorAll('.drag-item-list'),
+    listColumns: [
+        ...document.querySelectorAll('.drag-item-list'),
+    ],
     backlogListEl: document.getElementById('backlog-list'),
     progressListEl: document.getElementById('progress-list'),
     completeListEl: document.getElementById('complete-list'),
@@ -87,5 +89,8 @@ elements.saveItemBtns.forEach(btn => btn.addEventListener('click', e => {
 }));
 // update an item
 elements.listColumns.forEach(list => list.addEventListener('focusout', e => {
-    console.log(e);
+    const target = e.target;
+    const index = indexOfEl(target.parentNode, elements.listColumns);
+    const { id, textContent: update } = target;
+    boards[index].updateItem(+id, update?.trim());
 }));
