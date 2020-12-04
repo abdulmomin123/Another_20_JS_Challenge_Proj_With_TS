@@ -47,6 +47,7 @@ class Board {
         [this.saveBtn, this.addContainer].forEach(btn => btn.classList.remove('flex'));
         this.addBtn.classList.remove('hidden');
         this.textBox.textContent = '';
+        saveBoards();
         console.log(this.items);
     }
     renderItems() {
@@ -59,6 +60,7 @@ class Board {
     }
     updateItem(indexOfItem, update) {
         this.items[indexOfItem] = update;
+        saveBoards();
         console.log(this.items);
     }
 }
@@ -72,6 +74,24 @@ const boards = [
 // functions
 // returns the index of an element in an array
 const indexOfEl = (el, arr) => arr.indexOf(el);
+// saves the boards to localStorage
+const saveBoards = () => {
+    boards.forEach((board, i) => board.items.length
+        ? localStorage.setItem(`board${i}`, JSON.stringify(board.items))
+        : null);
+};
+// renders saved boards
+const retriveBoards = () => {
+    boards.forEach((board, i) => {
+        // check if there's a saved board
+        localStorage.getItem(`board${i}`)
+            ? (board.items = JSON.parse(localStorage.getItem(`board${i}`)))
+            : null;
+        // render the items of the board
+        boards[i].renderItems();
+    });
+};
+retriveBoards();
 // event listeners
 // Add item handler
 elements.addBtns.forEach(btn => btn.addEventListener('click', e => {
