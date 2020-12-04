@@ -95,6 +95,8 @@ class Board {
 
   updateItem(indexOfItem: number, update: string) {
     this.items[indexOfItem] = update;
+
+    console.log(this.items);
   }
 }
 

@@ -59,6 +59,7 @@ class Board {
     }
     updateItem(indexOfItem, update) {
         this.items[indexOfItem] = update;
+        console.log(this.items);
     }
 }
 // All boards
