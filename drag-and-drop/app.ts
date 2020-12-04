@@ -65,22 +65,34 @@ class Board {
   // saves the item
   saveItem(item: string) {
     this.items.push(item);
+
+    // update the dom
+    [this.saveBtn, this.addContainer].forEach(btn =>
+      (btn as HTMLElement).classList.remove('flex')
+    );
+    this.addBtn.classList.remove('hidden');
+    this.textBox.textContent = '';
+
     console.log(this.items);
   }
 
   renderItems() {
     this.itemsListEl.innerHTML = '';
 
-    this.items.forEach(item =>
+    this.items.forEach((item, i) =>
       this.itemsListEl.insertAdjacentHTML(
         'beforeend',
         `
-        <li id="0" class="drag-item" draggable="true" contenteditable="true">
+        <li id="${i}" class="drag-item" draggable="true" contenteditable="true">
           ${item}
         </li>
         `
       )
     );
+  }
+
+  updateItem(indexOfItem: number, update: string) {
+    this.items[indexOfItem] = update;
   }
 }
 
@@ -136,5 +148,12 @@ elements.saveItemBtns.forEach(btn =>
       boards[index].saveItem(item);
       boards[index].renderItems();
     }
+  })
+);
+
+// update an item
+elements.listColumns.forEach(list =>
+  list.addEventListener('focusout', e => {
+    console.log(e);
   })
 );
