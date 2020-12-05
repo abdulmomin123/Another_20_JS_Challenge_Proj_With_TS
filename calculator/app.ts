@@ -36,5 +36,7 @@ elements.btnsContainer.addEventListener('click', e => {
 
   if (target.classList.contains('calculator-buttons')) return;
 
+  const button = target.value;
+
   console.log(target);
 });
