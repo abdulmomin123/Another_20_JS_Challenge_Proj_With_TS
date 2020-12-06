@@ -29,6 +29,14 @@ const divide = () => {
   //
 };
 
+const resetCalculator = () => {
+  //
+};
+
+const displayResult = () => {
+  //
+};
+
 // event listeners
 // click handler on any button
 elements.btnsContainer.addEventListener('click', e => {
