@@ -37,15 +37,13 @@ elements.btnsContainer.addEventListener('click', e => {
     if (target.classList.contains('calculator-buttons'))
         return;
     const button = target.value;
-    // clear btn
-    if (button === 'c')
-        resetCalculator();
-    // calculate button
-    else if (button === '=')
-        displayResult();
-    if ((button === '0' || button === '.') && !pressedDigits.length)
-        return;
-    pressedDigits.push(+button);
-    elements.calculatorDisplay.textContent = `${pressedDigits.join('')}`;
-    console.log(button);
+    // click on the numbers
+    for (let i = 0; i < 10; i++)
+        if (i.toString() === button && button === '0' && pressedDigits.length)
+            pressedDigits.push(+button);
+    console.log(pressedDigits);
+    // click on the decimal
+    // click on the operators
+    // click on the clear btn
+    // click on the equal to btn
 });

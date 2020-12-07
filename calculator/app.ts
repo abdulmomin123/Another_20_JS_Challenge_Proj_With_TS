@@ -50,16 +50,18 @@ elements.btnsContainer.addEventListener('click', e => {
 
   const button = target.value;
 
-  // clear btn
-  if (button === 'c') resetCalculator();
-  // calculate button
-  else if (button === '=') displayResult();
+  // click on the numbers
+  for (let i = 0; i < 10; i++)
+    if (i.toString() === button && button === '0' && pressedDigits.length)
+      pressedDigits.push(+button);
 
-  if ((button === '0' || button === '.') && !pressedDigits.length) return;
+  console.log(pressedDigits);
 
-  pressedDigits.push(+button);
+  // click on the decimal
 
-  elements.calculatorDisplay.textContent = `${pressedDigits.join('')}`;
+  // click on the operators
 
-  console.log(button);
+  // click on the clear btn
+
+  // click on the equal to btn
 });
