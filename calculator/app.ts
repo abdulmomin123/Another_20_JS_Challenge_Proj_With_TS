@@ -11,6 +11,9 @@ const elements = {
 };
 
 // global variables
+let pressedDigits: number[] = [];
+let result = 0;
+let operator: '+' | '-' | 'x' | '/';
 
 // functions
 const add = () => {
@@ -29,11 +32,11 @@ const divide = () => {
   //
 };
 
-const resetCalculator = () => {
+const displayResult = () => {
   //
 };
 
-const displayResult = () => {
+const resetCalculator = () => {
   //
 };
 
@@ -46,5 +49,10 @@ elements.btnsContainer.addEventListener('click', e => {
 
   const button = target.value;
 
-  console.log(target);
+  // clear btn
+  if (button === 'c') resetCalculator();
+  // calculate button
+  else if (button === '=') displayResult();
+
+  console.log(button);
 });
