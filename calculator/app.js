@@ -8,6 +8,7 @@ const elements = {
 };
 // global variables
 let pressedDigits = [];
+let pressedDigitsTwo = [];
 let result = 0;
 let operator;
 // functions
@@ -42,5 +43,9 @@ elements.btnsContainer.addEventListener('click', e => {
     // calculate button
     else if (button === '=')
         displayResult();
+    if ((button === '0' || button === '.') && !pressedDigits.length)
+        return;
+    pressedDigits.push(+button);
+    elements.calculatorDisplay.textContent = `${pressedDigits.join('')}`;
     console.log(button);
 });

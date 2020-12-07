@@ -12,6 +12,7 @@ const elements = {
 
 // global variables
 let pressedDigits: number[] = [];
+let pressedDigitsTwo: number[] = [];
 let result = 0;
 let operator: '+' | '-' | 'x' | '/';
 
@@ -53,6 +54,12 @@ elements.btnsContainer.addEventListener('click', e => {
   if (button === 'c') resetCalculator();
   // calculate button
   else if (button === '=') displayResult();
+
+  if ((button === '0' || button === '.') && !pressedDigits.length) return;
+
+  pressedDigits.push(+button);
+
+  elements.calculatorDisplay.textContent = `${pressedDigits.join('')}`;
 
   console.log(button);
 });
