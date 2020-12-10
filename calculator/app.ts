@@ -11,8 +11,8 @@ const elements = {
 };
 
 // global variables
-let pressedDigits: number[] = [];
-let pressedDigitsTwo: number[] = [];
+let pressedDigits: (number | '.')[] = [];
+let pressedDigitsTwo: (number | '.')[] = [];
 let result = 0;
 let operator: '+' | '-' | 'x' | '/';
 
@@ -50,19 +50,32 @@ elements.btnsContainer.addEventListener('click', e => {
 
   const button = target.value;
 
+  // converting the button to a number
   const number = +button;
 
   // click on the numbers
-  if (number > -1)
-    number === 0 && !pressedDigits.length ? null : pressedDigits.push(number);
-
-  console.log(pressedDigits);
+  if (number > -1) {
+    if (!operator)
+      number === 0 && !pressedDigits.length ? null : pressedDigits.push(number);
+    else
+      number === 0 && !pressedDigits.length
+        ? null
+        : pressedDigitsTwo.push(number);
+  }
 
   // click on the decimal
+  button === '.' ? pressedDigits.push(button) : null;
 
   // click on the operators
+  if (button === '+' || '-' || 'x' || '/')
+    operator = button as '+' | '-' | 'x' | '/';
 
   // click on the clear btn
 
   // click on the equal to btn
+
+  // displaying the pressed digits
+  operator
+    ? (elements.calculatorDisplay.textContent = pressedDigitsTwo.join(''))
+    : (elements.calculatorDisplay.textContent = pressedDigits.join(''));
 });

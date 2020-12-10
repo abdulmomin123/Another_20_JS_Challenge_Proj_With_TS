@@ -37,13 +37,26 @@ elements.btnsContainer.addEventListener('click', e => {
     if (target.classList.contains('calculator-buttons'))
         return;
     const button = target.value;
+    // converting the button to a number
     const number = +button;
     // click on the numbers
-    if (number > -1)
-        number === 0 && !pressedDigits.length ? null : pressedDigits.push(number);
-    console.log(pressedDigits);
+    if (number > -1) {
+        if (!operator)
+            number === 0 && !pressedDigits.length ? null : pressedDigits.push(number);
+        else
+            number === 0 && !pressedDigits.length
+                ? null
+                : pressedDigitsTwo.push(number);
+    }
     // click on the decimal
+    button === '.' ? pressedDigits.push(button) : null;
     // click on the operators
+    if (button === '+' || '-' || 'x' || '/')
+        operator = button;
     // click on the clear btn
     // click on the equal to btn
+    // displaying the pressed digits
+    operator
+        ? (elements.calculatorDisplay.textContent = pressedDigitsTwo.join(''))
+        : (elements.calculatorDisplay.textContent = pressedDigits.join(''));
 });
