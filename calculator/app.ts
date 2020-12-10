@@ -55,12 +55,12 @@ elements.btnsContainer.addEventListener('click', e => {
 
   // click on the numbers
   if (number > -1) {
-    if (!operator)
-      number === 0 && !pressedDigits.length ? null : pressedDigits.push(number);
-    else
+    if (operator)
       number === 0 && !pressedDigits.length
         ? null
         : pressedDigitsTwo.push(number);
+    else
+      number === 0 && !pressedDigits.length ? null : pressedDigits.push(number);
   }
 
   // click on the decimal
@@ -75,6 +75,8 @@ elements.btnsContainer.addEventListener('click', e => {
   // click on the equal to btn
 
   // displaying the pressed digits
+  elements.calculatorDisplay.textContent = '';
+
   operator
     ? (elements.calculatorDisplay.textContent = pressedDigitsTwo.join(''))
     : (elements.calculatorDisplay.textContent = pressedDigits.join(''));
