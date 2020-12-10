@@ -50,10 +50,11 @@ elements.btnsContainer.addEventListener('click', e => {
 
   const button = target.value;
 
+  const number = +button;
+
   // click on the numbers
-  for (let i = 0; i < 10; i++)
-    if (i.toString() === button && button === '0' && pressedDigits.length)
-      pressedDigits.push(+button);
+  if (number > -1)
+    number === 0 && !pressedDigits.length ? null : pressedDigits.push(number);
 
   console.log(pressedDigits);
 
