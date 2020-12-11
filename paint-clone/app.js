@@ -35,10 +35,18 @@ class Brush {
 const brush = new Brush(10, '#fff');
 // functions
 const displaySelectedTool = () => (elements.activeToolEl.textContent = selectedTool);
+const displayBrushSize = () => (elements.brushSize.textContent = brush.size.toString());
 const updateBG = (color) => {
     ctx.fillStyle = color;
     ctx.fillRect(0, 0, elements.canvas.width, elements.canvas.height);
 };
 updateBG('#fff');
 displaySelectedTool();
+displayBrushSize();
 // event listeners
+// updte brush color
+elements.brushColorBtn.addEventListener('change', () => (brush.color = elements.brushColorBtn.value));
+// update bg color
+elements.bucketColorBtn.addEventListener('input', () => updateBG(elements.bucketColorBtn.value));
+// update brush size
+elements.brushSlider.addEventListener('input', () => ((brush.size = +elements.brushSlider.value), displayBrushSize()));
