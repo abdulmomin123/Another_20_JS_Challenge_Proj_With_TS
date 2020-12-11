@@ -21,7 +21,12 @@ const elements = {
 // Global Variables
 const ctx = elements.canvas.getContext('2d')!;
 
+ctx.lineJoin = 'round';
+ctx.lineCap = 'round';
+
 let isMouseDown = false;
+let lastX = 0;
+let lastY = 0;
 
 // brush
 class Brush {
@@ -44,7 +49,7 @@ class Brush {
   }
 }
 
-const brush = new Brush(10, '#fff');
+const brush = new Brush(10, elements.brushColorBtn.value);
 
 // functions
 const displaySelectedTool = () =>
@@ -85,10 +90,19 @@ const downloadCanvas = () => {
 };
 
 // ////////////////// the draw func
-const draw = () => {
+const draw = (e: MouseEvent) => {
   if (!isMouseDown) return;
 
-  console.log('hi');
+  ctx.strokeStyle = brush.color;
+  ctx.lineWidth = brush.size;
+
+  ctx.beginPath();
+  ctx.moveTo(lastX, lastY);
+  ctx.lineTo(e.offsetX, e.offsetY);
+  ctx.stroke();
+
+  lastX = e.offsetX;
+  lastY = e.offsetY;
 };
 
 updateBG('#fff');
@@ -147,11 +161,10 @@ elements.clearStorageBtn.addEventListener('click', clearCanvas);
 elements.downloadBtn.addEventListener('click', downloadCanvas);
 
 //////////////// the drawing events
-elements.canvas.addEventListener('mousedown', () => (isMouseDown = true));
+elements.canvas.addEventListener(
+  'mousedown',
+  e => ((isMouseDown = true), (lastX = e.offsetX), (lastY = e.offsetY))
+);
 elements.canvas.addEventListener('mouseup', () => (isMouseDown = false));
 
-elements.canvas.addEventListener('mousemove', e => {
-  draw();
-
-  console.log(e);
-});
+elements.canvas.addEventListener('mousemove', draw);
