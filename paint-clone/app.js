@@ -30,7 +30,11 @@ class Brush {
         this.color = color;
     }
 }
+const brush = new Brush(10, '#fff');
 // functions
 const displaySelectedTool = () => (elements.activeToolEl.textContent = selectedTool);
+const updateBG = () => {
+    //
+};
 displaySelectedTool();
 // event listeners

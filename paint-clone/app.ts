@@ -1,5 +1,6 @@
 // dom elements
 const elements = {
+  canvas: document.querySelector('#canvas') as HTMLCanvasElement,
   activeToolEl: document.getElementById('active-tool') as HTMLSpanElement,
   brushColorBtn: document.getElementById('brush-color') as HTMLInputElement,
   brushIcon: document.getElementById('brush') as HTMLDivElement,
@@ -15,6 +16,8 @@ const elements = {
 };
 
 // Global Variables
+const ctx = elements.canvas.getContext('2d');
+
 let selectedTool: 'Brush' | 'Eraser' = 'Brush';
 
 // brush
@@ -32,9 +35,15 @@ class Brush {
   }
 }
 
+const brush = new Brush(10, '#fff');
+
 // functions
 const displaySelectedTool = () =>
   (elements.activeToolEl.textContent = selectedTool);
+
+const updateBG = (color: string) => {
+  //
+};
 
 displaySelectedTool();
 // event listeners
