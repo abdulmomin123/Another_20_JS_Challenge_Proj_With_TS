@@ -1,6 +1,7 @@
 "use strict";
 // dom elements
 const elements = {
+    canvas: document.querySelector('#canvas'),
     activeToolEl: document.getElementById('active-tool'),
     brushColorBtn: document.getElementById('brush-color'),
     brushIcon: document.getElementById('brush'),
@@ -15,6 +16,7 @@ const elements = {
     downloadBtn: document.getElementById('download'),
 };
 // Global Variables
+const ctx = elements.canvas.getContext('2d');
 let selectedTool = 'Brush';
 // brush
 class Brush {
@@ -33,8 +35,10 @@ class Brush {
 const brush = new Brush(10, '#fff');
 // functions
 const displaySelectedTool = () => (elements.activeToolEl.textContent = selectedTool);
-const updateBG = () => {
-    //
+const updateBG = (color) => {
+    ctx.fillStyle = color;
+    ctx.fillRect(0, 0, elements.canvas.width, elements.canvas.height);
 };
+updateBG('#fff');
 displaySelectedTool();
 // event listeners

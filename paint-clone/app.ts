@@ -16,7 +16,7 @@ const elements = {
 };
 
 // Global Variables
-const ctx = elements.canvas.getContext('2d');
+const ctx = elements.canvas.getContext('2d')!;
 
 let selectedTool: 'Brush' | 'Eraser' = 'Brush';
 
@@ -42,8 +42,12 @@ const displaySelectedTool = () =>
   (elements.activeToolEl.textContent = selectedTool);
 
 const updateBG = (color: string) => {
-  //
+  ctx.fillStyle = color;
+  ctx.fillRect(0, 0, elements.canvas.width, elements.canvas.height);
 };
 
+updateBG('#fff');
+
 displaySelectedTool();
+
 // event listeners
