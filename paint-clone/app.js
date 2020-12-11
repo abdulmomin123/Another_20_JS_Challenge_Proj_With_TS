@@ -67,3 +67,5 @@ elements.brushAndEraser.forEach(btn => {
             updateTool('Eraser');
     });
 });
+// clear canvas
+elements.clearCanvasBtn.addEventListener('click', () => updateBG(`${elements.bucketColorBtn.value}`));

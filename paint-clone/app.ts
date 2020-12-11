@@ -60,7 +60,6 @@ const updateTool = (mode: 'Brush' | 'Eraser') =>
   (brush.mode = elements.activeToolEl.textContent = mode);
 
 updateBG('#fff');
-
 displaySelectedTool();
 displayBrushSize();
 
@@ -97,3 +96,8 @@ elements.brushAndEraser.forEach(btn => {
     else updateTool('Eraser');
   });
 });
+
+// clear canvas
+elements.clearCanvasBtn.addEventListener('click', () =>
+  updateBG(`${elements.bucketColorBtn.value}`)
+);
