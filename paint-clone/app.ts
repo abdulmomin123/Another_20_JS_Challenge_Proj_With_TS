@@ -59,6 +59,20 @@ const updateBG = (color: string) => {
 const updateTool = (mode: 'Brush' | 'Eraser') =>
   (brush.mode = elements.activeToolEl.textContent = mode);
 
+const saveCanvas = () =>
+  localStorage.setItem('savedCanvas', `${elements.canvas.toDataURL()}`);
+
+const retriveCanvas = () => {
+  const savedImg = localStorage.getItem('savedCanvas');
+
+  if (!savedImg) return;
+
+  const img = new Image();
+  img.src = savedImg;
+
+  img.addEventListener('load', () => ctx.drawImage(img, 0, 0));
+};
+
 updateBG('#fff');
 displaySelectedTool();
 displayBrushSize();
@@ -101,3 +115,9 @@ elements.brushAndEraser.forEach(btn => {
 elements.clearCanvasBtn.addEventListener('click', () =>
   updateBG(`${elements.bucketColorBtn.value}`)
 );
+
+// save canvas
+elements.saveStorageBtn.addEventListener('click', saveCanvas);
+
+// retrive canvas
+elements.loadStorageBtn.addEventListener('click', retriveCanvas);
