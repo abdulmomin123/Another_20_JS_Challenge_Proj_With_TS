@@ -93,7 +93,8 @@ const downloadCanvas = () => {
 const draw = (e: MouseEvent) => {
   if (!isMouseDown) return;
 
-  ctx.strokeStyle = brush.color;
+  ctx.strokeStyle =
+    brush.mode === 'Brush' ? brush.color : elements.bucketColorBtn.value;
   ctx.lineWidth = brush.size;
 
   ctx.beginPath();
