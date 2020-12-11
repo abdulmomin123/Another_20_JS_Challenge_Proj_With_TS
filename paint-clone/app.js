@@ -18,6 +18,7 @@ const elements = {
 };
 // Global Variables
 const ctx = elements.canvas.getContext('2d');
+let isMouseDown = false;
 // brush
 class Brush {
     constructor(size, color) {
@@ -60,6 +61,12 @@ const downloadCanvas = () => {
     elements.downloadBtn.setAttribute('href', img);
     elements.downloadBtn.setAttribute('download', 'your-drawing.png');
 };
+// ////////////////// the draw func
+const draw = () => {
+    if (!isMouseDown)
+        return;
+    console.log('hi');
+};
 updateBG('#fff');
 displaySelectedTool();
 displayBrushSize();
@@ -92,3 +99,7 @@ elements.loadStorageBtn.addEventListener('click', retriveCanvas);
 elements.clearStorageBtn.addEventListener('click', clearCanvas);
 // save canvas to disk
 elements.downloadBtn.addEventListener('click', downloadCanvas);
+//////////////// the drawing events
+elements.canvas.addEventListener('mousedown', () => (isMouseDown = true));
+elements.canvas.addEventListener('mouseup', () => (isMouseDown = false));
+elements.canvas.addEventListener('mousemove', draw);
