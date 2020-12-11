@@ -46,6 +46,7 @@ const updateBG = (color) => {
 };
 const updateTool = (mode) => (brush.mode = elements.activeToolEl.textContent = mode);
 const saveCanvas = () => localStorage.setItem('savedCanvas', `${elements.canvas.toDataURL()}`);
+const clearCanvas = () => localStorage.removeItem('savedCanvas');
 const retriveCanvas = () => {
     const savedImg = localStorage.getItem('savedCanvas');
     if (!savedImg)
@@ -82,3 +83,5 @@ elements.clearCanvasBtn.addEventListener('click', () => updateBG(`${elements.buc
 elements.saveStorageBtn.addEventListener('click', saveCanvas);
 // retrive canvas
 elements.loadStorageBtn.addEventListener('click', retriveCanvas);
+// delete canvas
+elements.clearStorageBtn.addEventListener('click', clearCanvas);

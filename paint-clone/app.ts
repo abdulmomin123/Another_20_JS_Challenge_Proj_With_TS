@@ -62,6 +62,8 @@ const updateTool = (mode: 'Brush' | 'Eraser') =>
 const saveCanvas = () =>
   localStorage.setItem('savedCanvas', `${elements.canvas.toDataURL()}`);
 
+const clearCanvas = () => localStorage.removeItem('savedCanvas');
+
 const retriveCanvas = () => {
   const savedImg = localStorage.getItem('savedCanvas');
 
@@ -121,3 +123,6 @@ elements.saveStorageBtn.addEventListener('click', saveCanvas);
 
 // retrive canvas
 elements.loadStorageBtn.addEventListener('click', retriveCanvas);
+
+// delete canvas
+elements.clearStorageBtn.addEventListener('click', clearCanvas);
