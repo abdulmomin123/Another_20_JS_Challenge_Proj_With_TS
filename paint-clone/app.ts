@@ -150,4 +150,8 @@ elements.downloadBtn.addEventListener('click', downloadCanvas);
 elements.canvas.addEventListener('mousedown', () => (isMouseDown = true));
 elements.canvas.addEventListener('mouseup', () => (isMouseDown = false));
 
-elements.canvas.addEventListener('mousemove', draw);
+elements.canvas.addEventListener('mousemove', e => {
+  draw();
+
+  console.log(e);
+});
