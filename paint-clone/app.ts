@@ -15,7 +15,26 @@ const elements = {
 };
 
 // Global Variables
+let selectedTool: 'Brush' | 'Eraser' = 'Brush';
+
+// brush
+class Brush {
+  constructor(public size: number, public color: string) {
+    //
+  }
+
+  set brushSize(size: number) {
+    this.size = size;
+  }
+
+  set brushColor(color: string) {
+    this.color = color;
+  }
+}
 
 // functions
+const displaySelectedTool = () =>
+  (elements.activeToolEl.textContent = selectedTool);
 
+displaySelectedTool();
 // event listeners

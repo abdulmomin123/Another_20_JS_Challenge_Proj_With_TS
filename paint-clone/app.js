@@ -15,5 +15,22 @@ const elements = {
     downloadBtn: document.getElementById('download'),
 };
 // Global Variables
+let selectedTool = 'Brush';
+// brush
+class Brush {
+    constructor(size, color) {
+        this.size = size;
+        this.color = color;
+        //
+    }
+    set brushSize(size) {
+        this.size = size;
+    }
+    set brushColor(color) {
+        this.color = color;
+    }
+}
 // functions
+const displaySelectedTool = () => (elements.activeToolEl.textContent = selectedTool);
+displaySelectedTool();
 // event listeners
