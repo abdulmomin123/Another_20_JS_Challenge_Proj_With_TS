@@ -3,7 +3,7 @@ const elements = {
   canvas: document.querySelector('#canvas') as HTMLCanvasElement,
   activeToolEl: document.getElementById('active-tool') as HTMLSpanElement,
   brushColorBtn: document.getElementById('brush-color') as HTMLInputElement,
-  brushIcon: document.getElementById('brush') as HTMLDivElement,
+  brush: document.getElementById('brush') as HTMLDivElement,
   brushSize: document.getElementById('brush-size') as HTMLSpanElement,
   brushSlider: document.getElementById('brush-slider') as HTMLInputElement,
   bucketColorBtn: document.getElementById('bucket-color') as HTMLInputElement,
@@ -13,15 +13,18 @@ const elements = {
   loadStorageBtn: document.getElementById('load-storage') as HTMLDivElement,
   clearStorageBtn: document.getElementById('clear-storage') as HTMLDivElement,
   downloadBtn: document.getElementById('download') as HTMLDivElement,
+  brushAndEraser: document.querySelectorAll(
+    '#brush, #eraser'
+  ) as NodeListOf<HTMLDivElement>,
 };
 
 // Global Variables
 const ctx = elements.canvas.getContext('2d')!;
 
-let selectedTool: 'Brush' | 'Eraser' = 'Brush';
-
 // brush
 class Brush {
+  mode: 'Brush' | 'Eraser' = 'Brush';
+
   constructor(public size: number, public color: string) {
     //
   }
@@ -33,13 +36,17 @@ class Brush {
   set brushColor(color: string) {
     this.color = color;
   }
+
+  set changeMode(mode: 'Brush' | 'Eraser') {
+    this.mode = mode;
+  }
 }
 
 const brush = new Brush(10, '#fff');
 
 // functions
 const displaySelectedTool = () =>
-  (elements.activeToolEl.textContent = selectedTool);
+  (elements.activeToolEl.textContent = brush.mode);
 
 const displayBrushSize = () =>
   (elements.brushSize.textContent = brush.size.toString());
@@ -48,6 +55,9 @@ const updateBG = (color: string) => {
   ctx.fillStyle = color;
   ctx.fillRect(0, 0, elements.canvas.width, elements.canvas.height);
 };
+
+const updateTool = (mode: 'Brush' | 'Eraser') =>
+  (brush.mode = elements.activeToolEl.textContent = mode);
 
 updateBG('#fff');
 
@@ -71,3 +81,19 @@ elements.brushSlider.addEventListener(
   'input',
   () => ((brush.size = +elements.brushSlider.value), displayBrushSize())
 );
+
+// update the selected tool
+elements.brushAndEraser.forEach(btn => {
+  btn.addEventListener('click', e => {
+    const btn = e.target as HTMLButtonElement;
+
+    elements.brushAndEraser.forEach(btn =>
+      (btn as HTMLElement).classList.remove('active')
+    );
+
+    btn.classList.add('active');
+
+    if (btn.id === 'brush') updateTool('Brush');
+    else updateTool('Eraser');
+  });
+});
