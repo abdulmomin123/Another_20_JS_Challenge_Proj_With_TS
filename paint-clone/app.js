@@ -55,6 +55,11 @@ const retriveCanvas = () => {
     img.src = savedImg;
     img.addEventListener('load', () => ctx.drawImage(img, 0, 0));
 };
+const downloadCanvas = () => {
+    const img = elements.canvas.toDataURL();
+    elements.downloadBtn.setAttribute('href', img);
+    elements.downloadBtn.setAttribute('download', 'your-drawing.png');
+};
 updateBG('#fff');
 displaySelectedTool();
 displayBrushSize();
@@ -85,3 +90,5 @@ elements.saveStorageBtn.addEventListener('click', saveCanvas);
 elements.loadStorageBtn.addEventListener('click', retriveCanvas);
 // delete canvas
 elements.clearStorageBtn.addEventListener('click', clearCanvas);
+// save canvas to disk
+elements.downloadBtn.addEventListener('click', downloadCanvas);
